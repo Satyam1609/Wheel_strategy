@@ -1,0 +1,11 @@
+{
+  "construction": "monthly cash-secured NIFTY put; ITM cash settlement triggers a next-session NIFTY futures purchase preserving the option's index units subject to whole-lot rounding; monthly calls cover futures; ITM call cash settlement closes futures",
+  "entry": "previous-day NIFTY close selects 5% OTM strike; execution at current NSE option/future close",
+  "options": "European cash settlement; monthly expiries identified by listed futures expiry",
+  "futures": "daily variation margin at NSE settlement; rolled at expiry after OTM call",
+  "margin": "full put strike cash reserve; otherwise max(15% futures notional, 20% short-call notional) as an offset proxy",
+  "interest": 0.065,
+  "option_slippage_bps": 25,
+  "futures_slippage_bps": 2,
+  "limitations": "EOD closes, no bid/ask or historical SPAN files; transitions execute at next-session close; expiry-day NIFTY close proxies the official option final-settlement index"
+}

@@ -10,7 +10,8 @@ This repository contains the real-data NSE bhavcopy backtest. Production code is
 - `tests/` — automated unit and integration checks.
 - `notebooks/` — optional interactive validation notebook.
 - `data/` — processed research inputs and audit records.
-- `outputs_real/` — generated tables, trade log, diagnostics, and PNG charts.
+- `outputs_real/` — Part A stock-wheel tables, trade log, diagnostics, and PNG charts.
+- `outputs_nifty/` — Part B synthetic NIFTY-wheel results and PNG chart.
 - `output_pdf/` — final research report.
 
 Only production code belongs under `main/`. The root contains the single README, dependency file, Git ignore rules, data, and generated deliverables expected in the repository.
@@ -23,6 +24,8 @@ The checked-in data covers 2020-01-01 through 2026-06-30 where NSE reports are a
 python3 -m pip install -r requirements.txt
 python3 -m main.backtest.run_real_backtest
 python3 -m main.backtest.plot_real_results
+python3 -m main.data_pipeline.extract_nifty_derivatives
+python3 -m main.backtest.run_nifty_wheel
 python3 -m main.report.build_report
 ```
 
@@ -32,7 +35,7 @@ The report is written to `output_pdf/Wheel_Strategy_Research_Report.pdf`. The ba
 
 The original selection rule, preserved in `main/backtest/select_universe.py`, was a fixed shortlist of liquid NSE F&O stocks spanning sectors, with a lower-volatility name (TCS) and stressed, high-idiosyncratic-risk names (TATAMOTORS and ADANIENT). It was a qualitative research selection, not an all-market liquidity ranking. The runner verifies all 12 against the first day's option participation: at least 250 contracts traded, 1 million summed share open interest, and 15 strike/expiry rows with both positive volume and open interest. `data/universe_selection.csv` records the actual 2020-01-01 readings, sectors, and selection reasons. The first strategy entry is on the following session. Because the fixed names are known to have data through 2026, survivorship risk remains.
 
-The downloader is `main/data_pipeline/fetch_nse_data.py`. It uses public NSE archive URLs, caches raw reports under `data/raw_nse/`, aliases the post-demerger `TMPV` symbol to the continuous `TATAMOTORS` sleeve, and records source coverage in `data/source_manifest.json`. Raw ZIPs, temporary chunks, probes, and Python caches are excluded by `.gitignore`. The 304 MB consolidated `data/real_options.csv` is tracked with Git LFS. `data/legacy_lot_sizes.csv` is a compact record of legacy contract lots previously validated from NSE turnover and open-interest divisibility, so the backtest itself no longer needs the raw ZIP cache.
+The downloader is `main/data_pipeline/fetch_nse_data.py`. It uses public NSE archive URLs, caches raw reports under `data/raw_nse/`, aliases the post-demerger `TMPV` symbol to the continuous `TATAMOTORS` sleeve, and records source coverage in `data/source_manifest.json`. Raw ZIPs, temporary chunks, probes, and Python caches are excluded by `.gitignore`. The consolidated `data/real_options.csv` and `data/nifty_derivatives.csv` files are tracked with Git LFS. `data/legacy_lot_sizes.csv` is a compact record of legacy contract lots previously validated from NSE turnover and open-interest divisibility, so the stock backtest itself no longer needs the raw ZIP cache.
 
 To recreate the consolidated market files from NSE archives:
 
@@ -60,7 +63,13 @@ python3 -m unittest discover -s tests -v
 - `outputs_real/equity_curve.csv` — wheel, NIFTY, and selected-universe equity curves.
 - `outputs_real/corporate_action_adjustments.csv` — daily applied events and position adjustments.
 - `outputs_real/real_equity_curves.png` and `outputs_real/real_drawdown.png` — presentation-ready charts.
-- `output_pdf/Wheel_Strategy_Research_Report.pdf` — report with results, sensitivity, stress narrative, limitations, and the required Part B design note.
+- `outputs_nifty/summary.csv` — synthetic NIFTY wheel and NIFTY total-return metrics.
+- `outputs_nifty/pnl_attribution.csv` — reconciled premium, cash settlement, futures variation margin, interest, and costs.
+- `outputs_nifty/daily_positions.csv` — daily option/futures state and margin headroom.
+- `outputs_nifty/trade_log.csv` — put, call, futures-entry, roll, and close events.
+- `outputs_nifty/sensitivity_summary.csv` — strike and option/futures slippage sensitivity.
+- `outputs_nifty/equity_curve.png` — Part B equity comparison chart.
+- `output_pdf/Wheel_Strategy_Research_Report.pdf` — report with Part A and implemented Part B results, sensitivity, stress narrative, and limitations.
 
 ## Data and limitations
 
@@ -70,6 +79,8 @@ The main NIFTY benchmark is the official daily NIFTY 50 total-return index (`dat
 
 The short-option writer pays option-sale STT on premium and 0.1% equity-delivery STT on delivered shares; option-exercise STT is borne by the option purchaser per [NSE's STT schedule](https://www.nseindia.com/static/invest/first-time-investor-sebi-turnover-fees-stt-other-levies). Mandatory assignment is at strike without discretionary execution slippage; residual stock sales are charged stock slippage. A 20%-notional SPAN-plus-exposure proxy rises to 35% for in-the-money deliverables in the last seven calendar days, with stock collateral valued at 80% of its close. The engine checks this at entry and logs daily headroom. These percentages are assumptions, not a replay of historical exchange SPAN files or broker-specific pledging rules. Bid/ask data are absent, so option-close execution still carries material uncertainty.
 
-## Part B design
+## Part B implementation
 
-The report includes the required design for a synthetic index wheel: cash-settled NIFTY options combined with a NIFTY futures position, with basis, roll, lot-size, margin-offset, and weekly/monthly-expiry considerations documented. It is design-only; implementation is optional in the assignment.
+`main/data_pipeline/extract_nifty_derivatives.py` builds `data/nifty_derivatives.csv` from the cached NSE F&O archives. It retains NIFTY options whose expiry matches a listed NIFTY futures expiry, which selects monthly contracts without relying on weekday conventions, and carries the historical exchange lot size.
+
+`main/backtest/run_nifty_wheel.py` implements the cash-settled index wheel. It sells monthly cash-secured puts; an ITM expiry triggers a next-session near-month futures purchase. Calls then cover the same number of index units and cannot be written below the synthetic recovery basis. An ITM call closes the futures position, while an OTM call leaves it in place for an expiry roll. Futures are marked to settlement daily, lot revisions preserve index units rounded down to a whole new lot, and every option/futures entry, close, and roll includes costs and slippage. The output is compared with the official NIFTY 50 total-return index.

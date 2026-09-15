@@ -45,6 +45,7 @@ STAMP_DUTY_BUY = 0.00003    # of premium, buy-side only
 
 DEFAULT_SLIPPAGE_BPS = 25    # of premium/notional, applied against the strategy
 ALT_SLIPPAGE_BPS = [10, 50]  # for sensitivity
+DEFAULT_FUTURES_SLIPPAGE_BPS = 2
 
 
 def stt_option_sell(premium_value: float, date) -> float:
@@ -87,3 +88,29 @@ def assignment_cost(settlement_value: float, date, slippage_bps: float = DEFAULT
     slippage = settlement_value * slippage_bps / 10000.0 if market_execution else 0.0
     sebi = SEBI_FEE_PER_CR * settlement_value / 1e7
     return brokerage + exch + gst + stt + slippage + sebi
+
+
+def futures_leg_cost(notional: float, date, side: str,
+                     slippage_bps: float = DEFAULT_FUTURES_SLIPPAGE_BPS):
+    """Execution costs for one NIFTY futures entry, exit, or roll leg.
+
+    Futures STT is charged on sells. It was 0.01% through 31 May 2023,
+    0.0125% from 1 June 2023, and 0.02% from 1 October 2024. Stamp duty is
+    charged on buys. Slippage is applied to futures notional because the EOD
+    archive has no executable bid/ask quote.
+    """
+    d = str(date.date()) if hasattr(date, "date") else str(date)
+    brokerage = BROKERAGE_PER_LEG
+    exch = notional * 0.0000173
+    gst = GST_RATE * (brokerage + exch)
+    stamp = notional * 0.00002 if side == "buy" else 0.0
+    if d < "2023-06-01":
+        stt_rate = 0.00010
+    elif d < "2024-10-01":
+        stt_rate = 0.000125
+    else:
+        stt_rate = 0.00020
+    stt = notional * stt_rate if side == "sell" else 0.0
+    slippage = notional * slippage_bps / 10000.0
+    sebi = SEBI_FEE_PER_CR * notional / 1e7
+    return brokerage + exch + gst + stamp + stt + slippage + sebi

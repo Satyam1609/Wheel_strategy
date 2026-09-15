@@ -16,11 +16,17 @@ from reportlab.platypus import Image, KeepTogether, Paragraph, SimpleDocTemplate
 
 BASE = Path(__file__).resolve().parents[2]
 REAL = BASE / "outputs_real"
+NIFTY = BASE / "outputs_nifty"
 DATA = BASE / "data"
 
 
 def read_csv(name):
     with (REAL / name).open(newline="") as f:
+        return list(csv.DictReader(f))
+
+
+def read_nifty_csv(name):
+    with (NIFTY / name).open(newline="") as f:
         return list(csv.DictReader(f))
 
 
@@ -79,7 +85,7 @@ def footer(canvas, doc):
     canvas.saveState()
     canvas.setFont("Helvetica", 7)
     canvas.setFillColor(colors.HexColor("#6b7280"))
-    canvas.drawString(1.7 * cm, 1.1 * cm, "Real-data NSE bhavcopy backtest | exploratory research")
+    canvas.drawString(1.7 * cm, 1.1 * cm, "Real-data NSE bhavcopy backtests | exploratory research")
     canvas.drawRightString(A4[0] - 1.7 * cm, 1.1 * cm, f"Page {doc.page}")
     canvas.restoreState()
 
@@ -103,13 +109,17 @@ def build(output):
     coverage = read_json(DATA / "coverage_summary.json")
     by_series = {r["series"]: r for r in summary}
     actions = Counter(r["action"] for r in trades)
+    nifty_summary = {r["series"]: r for r in read_nifty_csv("summary.csv")}
+    nifty_diag = read_nifty_csv("diagnostics.csv")[0]
+    nifty_attr = read_nifty_csv("pnl_attribution.csv")[0]
+    nifty_sensitivity = read_nifty_csv("sensitivity_summary.csv")
 
     doc = SimpleDocTemplate(str(output), pagesize=A4, rightMargin=1.7 * cm, leftMargin=1.7 * cm, topMargin=1.5 * cm, bottomMargin=1.7 * cm, title="Real-data Wheel Backtest Report")
     story = [
         P("Systematic Options: The Wheel Strategy on NSE Derivatives", "Title"),
         P("Research Report — Brindco Quant Researcher Take-Home Assignment", "Sub"),
         P(f"Prepared by: Satyam &nbsp;|&nbsp; Report generated {date.today().isoformat()}", "Small"),
-        P(f"<b>Scope.</b> This report reads the current outputs from <tt>outputs_real/</tt>, produced from downloaded NSE equity and derivatives bhavcopies through {assumptions['end_date']}. Verified split, bonus, rights, demerger, and symbol events are applied to the wheel and equal-weight universe. The action screen and limitations below define the remaining gaps.", "Callout"),
+        P(f"<b>Scope.</b> This report reads the current Part A stock-wheel outputs from <tt>outputs_real/</tt> and Part B synthetic NIFTY-wheel outputs from <tt>outputs_nifty/</tt>, produced from downloaded NSE equity and derivatives bhavcopies through {assumptions['end_date']}. Verified split, bonus, rights, demerger, and symbol events are applied to the stock wheel and equal-weight universe. The action screen and limitations below define the remaining gaps.", "Callout"),
         P("1. Overview and verdict", "Section"),
         P("The table below is generated directly from <tt>outputs_real/summary.csv</tt>. NIFTY 50 uses the official NSE Indices total-return series, which reinvests constituent dividends. The selected-universe benchmark includes recorded dividends and non-cash entitlements.", "Body2"),
     ]
@@ -202,15 +212,41 @@ def build(output):
               table(stress_rows, [2.2*cm, 4.1*cm, 4.1*cm, 2.2*cm, 2.8*cm], 6.4),
               P(f"AXISBANK lost {money(axis_loss)} without holding shares at either endpoint: its open short put was marked against a {pct(axis_stock_move)} underlying move. TATAMOTORS and LT lost through delivered shares after the two assignments. The trade log shows {sum(r['action'].startswith('SELL_') for r in episode_trades)} new option sales and {money(sum(float(r.get('cost') or 0) for r in episode_trades))} of logged event costs during this episode. Daily option liabilities, cash and shares are in <tt>outputs_real/daily_positions.csv</tt>.", "Body2")]
 
-    story += [KeepTogether([P("5. Part B: synthetic index wheel design", "Section"), P("NIFTY and BANKNIFTY options are cash-settled, so a stock-style physical wheel cannot be copied directly. A concrete synthetic construction is: sell a cash-secured OTM NIFTY put; if it finishes ITM, buy one NIFTY futures lot and carry the futures position as the synthetic delivered index; while the futures position is held, sell an OTM call; if the call finishes ITM, close the futures lot at the call strike and return to the cash-secured put state. If either option expires out of the money, retain the premium and sell the next monthly contract. The implementation must mark futures basis daily, charge futures roll costs, enforce option and futures margin offsets, and round every position to the current lot size. Weekly expiries can raise premium turnover and gamma risk; monthly expiries align more closely with the stock-wheel cycle. The index wheel removes single-name gap risk but concentrates market beta and basis risk. This design is included as required; it is not presented as an implemented result.", "Body2")])]
-    story += [P("A precise state transition would use the expiry-day index settlement S and short-put strike K. If S is below K, the put settles for a cash debit of (K-S) times the current lot size. The system then buys one matching near-month futures lot, subject to next-session execution and basis slippage, and keeps enough free cash for daily variation margin. That combined exposure behaves approximately like index ownership from K, but cannot deliver the index basket itself. When long futures are held, calls are written against the same lot count. If S exceeds a short-call strike, the cash option debit is offset by the futures gain; the futures are closed and the cash-secured put state resumes. Call strikes must also respect the synthetic position's net entry level, so a large index decline can leave calls far out of the money and premiums small.", "Body2"),
-              P("For a test, choose one index and one contract tenor ex ante; use dated NSE options and futures settlements, actual historical lot sizes and expiry calendars, and the same close-to-next-open execution convention for every transition. Maintain a separate cash ledger for premiums, option cash settlement, futures daily mark-to-market, financing, transaction charges, STT, and slippage. Reserve worst-case put cash obligation and upfront option/futures margins; after an ITM put, test whether the account can fund the new futures margin plus a stress buffer before entering. If it cannot, record a missed transition rather than silently assuming leverage. Roll the futures before expiry, explicitly paying the old/new basis spread and fees. A weekly schedule needs more frequent re-hedging, more event risk near expiry, and higher turnover; the monthly schedule is the closer analogue to the stock-wheel experiment.", "Body2"),
-              P("Report the index-wheel equity alongside NIFTY 50 total return, not just the price index, and compare both variants under common strike and slippage sensitivities. A futures overlay introduces basis, roll, and margin-call risk even though it removes stock-specific dividends and corporate actions. NIFTY 50 and BANKNIFTY should be evaluated separately because contract size and volatility change cash requirements. The index contracts are cash-settled and futures are marked to market daily under the <link href='https://www.nseindia.com/static/products-services/equity-derivatives-settlement-mechanism'>NSE settlement mechanism</link>. This section defines an implementable study; no index-wheel performance is claimed here.", "Body2")]
+    nw = nifty_summary["synthetic_nifty_wheel"]
+    nb = nifty_summary["nifty_tr"]
+    part_b_rows = [["Series", "End value", "CAGR", "Vol", "Sharpe", "Sortino", "MDD", "Calmar"]]
+    for label, row in (("Synthetic NIFTY wheel", nw), ("NIFTY 50 total return", nb)):
+        part_b_rows.append([label, money(row["end"]), pct(row["CAGR"]), pct(row["AnnVol"]),
+                            num(row["Sharpe"]), num(row["Sortino"]), pct(row["MDD"]), num(row["Calmar"])])
+    story += [KeepTogether([P("5. Part B: implemented synthetic NIFTY wheel", "Section"),
+              P("NIFTY options settle in cash, so an ITM put cannot deliver an index basket. This implementation sells monthly cash-secured puts and, after an ITM expiry, buys the nearest monthly NIFTY futures contract on the next session. It then writes calls against the same number of index units. An ITM call settles in cash and closes the futures; an OTM call leaves the futures in place and triggers a roll at futures expiry. Calls cannot be struck below the recovery basis. Futures are marked to NSE settlement daily, transaction costs and slippage are charged on every futures leg, and lot changes preserve index units rounded down to a whole new lot.", "Body2")]),
+              table(part_b_rows, [2.8*cm, 2.5*cm, 1.6*cm, 1.6*cm, 1.4*cm, 1.5*cm, 1.7*cm, 1.4*cm], 6.5),
+              Spacer(1, 6), Image(str(NIFTY / "equity_curve.png"), width=17.0*cm, height=7.8*cm),
+              P("Figure 3. Implemented monthly synthetic NIFTY wheel versus NIFTY 50 total return.", "Small")]
+    story += [P(f"Across 2020-01-01 to 2026-06-30, the engine sold {nifty_diag['put_entries']} puts; {pct(nifty_diag['assignment_rate'])} settled ITM and initiated futures exposure. It sold {nifty_diag['call_entries']} calls, with {pct(nifty_diag['call_away_rate'])} ending in a synthetic call-away, and completed {nifty_diag['futures_rolls']} futures rolls. It recorded {nifty_diag['stale_option_marks']} stale option marks and {nifty_diag['stale_future_marks']} stale futures marks, which retain the last settlement. The account reserves the full put strike obligation; while futures and a short call are held it uses the larger of 15% of futures notional and 20% of call notional as a documented margin proxy.", "Body2")]
+    part_b_attr = [["Reconciled component", "INR"],
+                   ["Starting capital", money(nifty_attr["starting_capital"])],
+                   ["Option premium", money(nifty_attr["premium_received"])],
+                   ["Option cash settlement", money(nifty_attr["option_cash_settlement"])],
+                   ["Futures variation margin", money(nifty_attr["futures_mtm"])],
+                   ["Cash interest", money(nifty_attr["cash_interest"])],
+                   ["Costs", money(nifty_attr["costs"])],
+                   ["Ending equity", money(nifty_attr["ending_equity"])]]
+    nsrows = [["Scenario", "OTM", "Opt slip", "Fut slip", "CAGR", "Sharpe", "MDD"]]
+    for row in nifty_sensitivity:
+        nsrows.append([row["scenario"], pct(row["strike_otm"]), f"{row['option_slippage_bps']} bps",
+                       f"{row['futures_slippage_bps']} bps", pct(row["CAGR"]),
+                       num(row["Sharpe"]), pct(row["MDD"])])
+    story += [KeepTogether([P("Part B ledger and sensitivity", "Sub"),
+                            table(part_b_attr, [7.5*cm, 5.2*cm], 7.0)]),
+              Spacer(1, 6), table(nsrows, [3.3*cm, 1.5*cm, 2.0*cm, 2.0*cm, 1.7*cm, 1.6*cm, 1.8*cm], 6.5),
+              P("The base case ended below NIFTY total return but with lower volatility and a materially smaller maximum drawdown. The 3% OTM case improved return while deepening drawdown; 8% OTM reduced both premium income and return. Futures slippage matters more than option-premium slippage because it is charged on full futures notional.", "Body2"),
+              P("The option expiry cash debit uses intrinsic value calculated from the expiry-day NIFTY close because the historical archive does not supply the official final-settlement index as a clean separate field throughout the sample. Entry uses the next session's observed close, not its open, and historical SPAN files and executable bid/ask quotes are unavailable. These are material implementation limits. Weekly expiries were excluded by matching option expiries to listed NIFTY futures expiries; a weekly version would have higher turnover and near-expiry gamma exposure.", "Callout")]
 
     story += [P("6. Limitations, sources and reproducibility", "Section"),
               P("Daily equity and F&amp;O bhavcopies come from <link href='https://www.nseindia.com/all-reports'>NSE reports</link>; cache paths and missing dates appear in <tt>data/source_manifest.json</tt>, while archive URL patterns are in <tt>main/data_pipeline/fetch_nse_data.py</tt>. Event links are in <tt>data/corporate_actions.csv</tt>. Benchmark: <link href='https://www.niftyindices.com/reports/historical-data'>NSE Indices historical TRI</link>. Tax: <link href='https://www.nseindia.com/static/invest/first-time-investor-sebi-turnover-fees-stt-other-levies'>NSE STT rates and payer</link>. Margin: <link href='https://www.nseindia.com/static/trade/members-faqs-margin-collection-and-reporting'>NSE margin FAQ</link>. The 20%/35% coefficients are proxies, not daily exchange SPAN calculations. Unlisted strikes and stale option marks are possible; bid/ask fields are absent. Previous-day stock prices avoid strike-selection look-ahead, but filling at the same day's observed option close remains optimistic. Fixed 2026-observable names introduce survivorship bias.", "Body2"),
-              P(f"<b>Deployability verdict.</b> The wheel returned {pct(by_series['wheel']['CAGR'])} annualized versus {pct(by_series['nifty_tr']['CAGR'])} for NIFTY 50 total return, but the selected stock buy-and-hold earned {pct(by_series['universe_bh']['CAGR'])}. Interest on idle or secured cash contributed {money(sum(float(r['cash_interest']) for r in attribution))} of the wheel's {money(float(by_series['wheel']['end'])-float(by_series['wheel']['start']))} gain. The evidence is not sufficient for a production deployment claim until the universe is selected objectively and executions/margins are tested with more realistic data.", "Callout"),
-              P("Run <tt>python3 -m main.data_pipeline.fetch_nifty_tr</tt>, then <tt>python3 -m main.backtest.run_real_backtest</tt>, <tt>python3 -m main.backtest.plot_real_results</tt>, and <tt>python3 -m main.report.build_report</tt>. Corporate-data utilities are grouped under <tt>main/data_pipeline/</tt>; tests are isolated under <tt>tests/</tt>. Install <tt>requirements.txt</tt> first.", "Body2")]
+              P(f"<b>Deployability verdict.</b> The stock wheel returned {pct(by_series['wheel']['CAGR'])} annualized and the synthetic NIFTY wheel returned {pct(nw['CAGR'])}, versus {pct(by_series['nifty_tr']['CAGR'])} for NIFTY 50 total return. Interest on idle or secured cash contributed {money(sum(float(r['cash_interest']) for r in attribution))} to Part A and {money(nifty_attr['cash_interest'])} to Part B. The evidence is not sufficient for a production deployment claim until execution prices and historical margins are tested with more realistic data and the Part A universe is selected objectively.", "Callout"),
+              P("Run <tt>python3 -m main.data_pipeline.fetch_nifty_tr</tt>, <tt>python3 -m main.data_pipeline.extract_nifty_derivatives</tt>, <tt>python3 -m main.backtest.run_real_backtest</tt>, <tt>python3 -m main.backtest.plot_real_results</tt>, <tt>python3 -m main.backtest.run_nifty_wheel</tt>, and finally <tt>python3 -m main.report.build_report</tt>. Tests are isolated under <tt>tests/</tt>. Install <tt>requirements.txt</tt> first.", "Body2")]
     output.parent.mkdir(parents=True, exist_ok=True)
     doc.build(story, onFirstPage=footer, onLaterPages=footer)
 
