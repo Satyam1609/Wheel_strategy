@@ -1,0 +1,15 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.matplotlib/
+
+# Download caches and temporary assembly files
+data/raw_nse/
+data/chunks/
+data/probe/
+tmp/
+
+# The consolidated option history is about 300 MB. Recreate it with the
+# downloader or track it with Git LFS instead of regular Git.
+data/real_options.csv
+

@@ -1,0 +1,23 @@
+{
+  "source": "NSE bhavcopy, data/real_prices.csv and data/real_options.csv",
+  "universe_selection": "Original 12-name cross-sector and stress shortlist; first-day option participation eligibility check in data/universe_selection.csv (not an all-market ranking)",
+  "nifty_tr": "Official NSE Indices total-return index; data/nifty50_tr.csv",
+  "end_date": "2026-06-30",
+  "entry_price": "traded option close, volume>0 and OI>0",
+  "strike_reference": "previous trading day's close, transformed to ex-action basis when needed",
+  "mark_price": "NSE settlement; last observed settlement when contract row missing",
+  "lot_size": "UDiFF NewBrdLotQty or data/legacy_lot_sizes.csv; GCD of legacy share open interest is the fallback",
+  "dividends": "NSE ex-date cash distributions credited to prior-close share holdings in wheel and equal-weight universe",
+  "dividend_file": "data/dividends.csv (parsed from archived NSE corporate-action register)",
+  "cash_interest_rate": 0.065,
+  "slippage_bps": 25,
+  "strike_otm": 0.05,
+  "corporate_actions": "Verified NSE split/bonus/rights and demerger contract events; spun-off shares marked then sold by wheel at first listing close",
+  "corporate_action_file": "data/corporate_actions.csv",
+  "spin_off_prices": "data/spinoff_prices.csv (NSE cached equity bhavcopies; BE and EQ series)",
+  "universe_benchmark": "Equal initial rupee allocation; corporate-action share units adjusted and spun-off shares retained; cash dividends included",
+  "expiry_revisions": "detected when the same strike/type moves to an earlier expiry within 3 days",
+  "residual_shares": "sold at stock close after call-away, with conservative delivery cost, to reset wheel to cash",
+  "margin": "cash-secured puts and covered calls; 20% notional SPAN+exposure proxy, 35% for ITM deliverables in final 7 calendar days; 80% stock collateral value; no exchange SPAN file",
+  "stt": "short-option writer pays option-sale STT and 0.1% share-delivery STT; purchaser, not writer, pays option-exercise STT"
+}

@@ -1,0 +1,28 @@
+{
+  "window": [
+    "2020-01-01",
+    "2026-06-30"
+  ],
+  "weekday_dates_checked": 1695,
+  "price_dates": 1604,
+  "option_dates": 1603,
+  "option_rows": 4891323,
+  "dates_with_all_three_reports_missing": 91,
+  "dates_with_equity_symbol_gap": 0,
+  "dates_with_options_report_missing": 1,
+  "missing_price_cells": {},
+  "missing_option_fields": {
+    "bid": 4891323,
+    "ask": 4891323,
+    "lot_size": 3776528
+  },
+  "zero_option_fields": {
+    "volume": 3143833,
+    "open_interest": 2724347,
+    "settlement": 109261
+  },
+  "duplicate_option_contract_keys": 0,
+  "price_dates_without_options": [
+    "2021-03-30"
+  ]
+}

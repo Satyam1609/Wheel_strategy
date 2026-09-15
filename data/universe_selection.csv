@@ -1,0 +1,13 @@
+active_option_rows,formation_date,option_contracts_traded,original_selection_reason,passes_inception_liquidity_check,sector,summed_contract_open_interest,ticker
+62,2020-01-01,27291,large diversified energy,True,Energy,13041500,RELIANCE
+27,2020-01-01,7787,large bank,True,Private bank,5155500,HDFCBANK
+49,2020-01-01,9561,large bank,True,Private bank,16729625,ICICIBANK
+43,2020-01-01,10378,lower-volatility / defensive sleeve,True,IT services,3235250,TCS
+37,2020-01-01,4121,IT peer diversification,True,IT services,7551600,INFY
+58,2020-01-01,13563,public-sector bank exposure,True,Public bank,46479000,SBIN
+34,2020-01-01,9019,bank peer diversification,True,Private bank,9016800,AXISBANK
+29,2020-01-01,7433,bank peer diversification,True,Private bank,2798800,KOTAKBANK
+38,2020-01-01,15088,industrial / infrastructure exposure,True,Industrials,4767750,LT
+33,2020-01-01,6677,cyclical stressed-name exposure,True,Autos,27081400,TATAMOTORS
+21,2020-01-01,4722,consumer finance exposure,True,NBFC,1455000,BAJFINANCE
+18,2020-01-01,257,high idiosyncratic-risk exposure,True,Conglomerate,2360000,ADANIENT

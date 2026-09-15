@@ -1,0 +1,105 @@
+date,ticker,dividend_per_share,source,nse_subject
+2020-01-23,TCS,5,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 5 Per Share
+2020-03-03,BAJFINANCE,10,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=BAJFINANCE&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 10 Per Share
+2020-03-19,TCS,12,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 12 Per Share
+2020-03-23,ADANIENT,1,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=ADANIENT&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Re 1 Per Share
+2020-03-24,LT,10,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=LT&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 10 Per Share
+2020-05-29,INFY,9.5,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=INFY&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 9.50 Per Share
+2020-06-03,TCS,6,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 6 Per Share
+2020-07-02,RELIANCE,6.5,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=RELIANCE&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 6.50  Per Share
+2020-07-16,TCS,5,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs    5 Per Share
+2020-08-05,LT,8,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=LT&from_date=01-01-2020&to_date=30-06-2026,Annual General Meeting/Dividend - Rs  8 Per Share
+2020-10-14,TCS,12,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 12 Per Share
+2020-10-23,INFY,12,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=INFY&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 12 Per Share
+2020-11-04,LT,18,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=LT&from_date=01-01-2020&to_date=30-06-2026,Special Dividend - Rs 18 Per Share
+2021-01-14,TCS,6,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 6 Per Share
+2021-05-25,TCS,15,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 15 Per Share
+2021-05-31,INFY,15,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=INFY&from_date=01-01-2020&to_date=30-06-2026,Annual General Meeting/Dividend - Rs 15 Per Share
+2021-06-03,SBIN,4,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=SBIN&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 4 Per Share
+2021-06-11,RELIANCE,7,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=RELIANCE&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 7 Per Share
+2021-06-29,HDFCBANK,6.5,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=HDFCBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 6.50 Per Share
+2021-07-01,ADANIENT,1,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=ADANIENT&from_date=01-01-2020&to_date=30-06-2026,Dividend - Re 1 Per Share
+2021-07-08,BAJFINANCE,10,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=BAJFINANCE&from_date=01-01-2020&to_date=30-06-2026,Annual General Meeting/Dividend - Rs 10 Per Share
+2021-07-15,TCS,7,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 7 Per Share
+2021-07-28,LT,18,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=LT&from_date=01-01-2020&to_date=30-06-2026,Annual General Meeting/Dividend - Rs 18 Per Share
+2021-07-29,ICICIBANK,2,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=ICICIBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 2 Per Share
+2021-08-11,KOTAKBANK,0.9,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=KOTAKBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 0.90 Per Share
+2021-10-14,TCS,7,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 7 Per Share
+2021-10-26,INFY,15,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=INFY&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 15 Per Sh
+2022-01-19,TCS,7,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 7 Per Share
+2022-05-12,HDFCBANK,15.5,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=HDFCBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 15.50 Per Share
+2022-05-25,SBIN,7.1,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=SBIN&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 7.10 Per Share
+2022-05-25,TCS,22,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 22 Per Share
+2022-05-31,INFY,16,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=INFY&from_date=01-01-2020&to_date=30-06-2026,Annual General Meeting/Dividend - Rs 16 Per Share
+2022-06-30,BAJFINANCE,20,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=BAJFINANCE&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 20 Per Share
+2022-07-07,AXISBANK,1,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=AXISBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 1 Per Share
+2022-07-14,ADANIENT,1,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=ADANIENT&from_date=01-01-2020&to_date=30-06-2026,Dividend - Re 1 Per Share
+2022-07-14,TCS,8,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend- Rs 8 Per Share
+2022-07-21,LT,22,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=LT&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 22 Per Share
+2022-08-08,ICICIBANK,5,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=ICICIBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 5 Per Share
+2022-08-11,KOTAKBANK,1.1,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=KOTAKBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 1.10 Per Share
+2022-08-18,RELIANCE,8,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=RELIANCE&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 8 Per Share
+2022-10-17,TCS,8,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 8 Per Share
+2022-10-27,INFY,16.5,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=INFY&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 16.50 Per Share
+2023-01-16,TCS,75,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 8 Per Share Special Dividend - Rs 67 Per Share
+2023-05-16,HDFCBANK,19,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=HDFCBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 19 Per Share
+2023-05-31,SBIN,11.3,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=SBIN&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 11.30 Per Share
+2023-06-02,INFY,17.5,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=INFY&from_date=01-01-2020&to_date=30-06-2026,Annual General Meeting/Dividend - Rs 17.50 Per Share
+2023-06-15,TCS,24,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 24 Per Share
+2023-06-30,BAJFINANCE,30,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=BAJFINANCE&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 30 Per Share
+2023-07-07,ADANIENT,1.2,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=ADANIENT&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 1.20 Per Share
+2023-07-07,AXISBANK,1,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=AXISBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Re 1 Per Share
+2023-07-20,TCS,9,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 9 Per Share
+2023-07-28,TATAMOTORS,2,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TMPV&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 2 Per Share
+2023-08-02,LT,30,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=LT&from_date=01-01-2020&to_date=30-06-2026,Special Dividend - Rs 6 Per Share | Dividend - Rs 24 Per Share
+2023-08-04,KOTAKBANK,1.5,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=KOTAKBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 1.50 Per Sh
+2023-08-09,ICICIBANK,8,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=ICICIBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 8 Per Share
+2023-08-21,RELIANCE,9,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=RELIANCE&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 9 Per Share
+2023-10-19,TCS,9,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 9 Per Share
+2023-10-25,INFY,18,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=INFY&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 18 Per Share
+2024-01-19,TCS,27,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 9 Per Share Special Dividend - Rs 18 Per Share
+2024-05-10,HDFCBANK,19.5,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=HDFCBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 19.50 Per Share
+2024-05-16,TCS,28,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 28 Per Share
+2024-05-22,SBIN,13.7,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=SBIN&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 13.70 Per Share
+2024-05-31,INFY,28,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=INFY&from_date=01-01-2020&to_date=30-06-2026,Annual General Meeting/Special Dividend - Rs 8 Per Share /Dividend - Rs 20 Per Share
+2024-06-11,TATAMOTORS,6,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TMPV&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 3 Per Share & Special Dividend - Rs 3 Per Share
+2024-06-14,ADANIENT,1.3,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=ADANIENT&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 1.30 Per Share
+2024-06-20,LT,28,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=LT&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 28 Per Share
+2024-06-21,BAJFINANCE,36,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=BAJFINANCE&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 36 Per Share
+2024-07-12,AXISBANK,1,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=AXISBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Re 1 Per Share
+2024-07-19,KOTAKBANK,2,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=KOTAKBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 2 Per Share
+2024-07-19,TCS,10,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 10 Per Share
+2024-08-12,ICICIBANK,10,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=ICICIBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 10 Per Share
+2024-08-19,RELIANCE,10,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=RELIANCE&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 10 Per Share
+2024-10-18,TCS,10,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 10 Per Share
+2024-10-29,INFY,21,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=INFY&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 21 Per Share
+2025-01-17,TCS,76,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 10 Per Share Special Dividend - Rs 66 Per Share
+2025-05-09,BAJFINANCE,12,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=BAJFINANCE&from_date=01-01-2020&to_date=30-06-2026,Special Dividend - Rs 12 Per Share
+2025-05-16,SBIN,15.9,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=SBIN&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 15.90 Per Share
+2025-05-30,BAJFINANCE,44,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=BAJFINANCE&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 44 Per Share
+2025-05-30,INFY,22,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=INFY&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 22 Per Share
+2025-06-03,LT,34,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=LT&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 34 Per Share
+2025-06-04,TATAMOTORS,6,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TMPV&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 6 Per Share
+2025-06-04,TCS,30,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 30 Per Share
+2025-06-13,ADANIENT,1.3,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=ADANIENT&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 1.30 Per Share
+2025-06-27,HDFCBANK,22,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=HDFCBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 22 Per Share
+2025-07-04,AXISBANK,1,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=AXISBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Re 1 Per Sh
+2025-07-16,TCS,11,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 11 Per Share
+2025-07-18,KOTAKBANK,2.5,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=KOTAKBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 2.50 Per Share
+2025-07-25,HDFCBANK,5,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=HDFCBANK&from_date=01-01-2020&to_date=30-06-2026,Special Dividend - Rs 5 Per Share
+2025-08-11,JIOFIN,0.5,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=JIOFIN&from_date=01-01-2020&to_date=30-06-2026,Dividend - Re 0.50 Per Share
+2025-08-12,ICICIBANK,11,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=ICICIBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 11 Per Share
+2025-08-14,RELIANCE,5.5,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=RELIANCE&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 5.5 Per Share
+2025-10-15,TCS,11,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 11 Per Share
+2025-10-27,INFY,23,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=INFY&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend - Rs 23 Per Share
+2026-01-16,TCS,57,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Interim Dividend Rs 11 Per Share/ Special Dividend Rs 46 Per Share
+2026-05-15,SBIN,17.35,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=SBIN&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 17.35 Per Share
+2026-05-22,LT,38,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=LT&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 38 Per Share
+2026-05-25,TCS,31,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TCS&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 31 Per Share
+2026-06-05,RELIANCE,6,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=RELIANCE&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 6 Per Share
+2026-06-10,INFY,25,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=INFY&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 25 Per Share
+2026-06-12,ADANIENT,1.3,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=ADANIENT&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 1.30 Per Share
+2026-06-12,TMCV,4,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TMCV&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 4 Per Share
+2026-06-19,HDFCBANK,13,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=HDFCBANK&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 13 Per Share
+2026-06-19,TATAMOTORS,3,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=TMPV&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 3 Per Share
+2026-06-30,BAJFINANCE,6,https://www.nseindia.com/api/corporates-corporateActions?index=equities&symbol=BAJFINANCE&from_date=01-01-2020&to_date=30-06-2026,Dividend - Rs 6 Per Share

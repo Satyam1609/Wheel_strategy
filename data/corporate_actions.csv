@@ -1,0 +1,12 @@
+effective_date,ticker,action,adjustment_factor,new_symbol,revised_market_lot,old_market_lot,cash_benefit_per_share,spin_off_symbol,spin_off_ratio,provisional_value,source,notes
+2020-05-13,RELIANCE,RIGHTS,0.990610,,505,500,13.890625,,,,https://nsearchives.nseindia.com/content/circulars/FAOP44356.pdf,1-for-15 rights at INR 1257; theoretical entitlement sold for NSE stated benefit per share; old option lots 500 become 505
+2023-07-19,RELIANCE,EXPIRY_RESET,,,,,,,,,https://nsearchives.nseindia.com/content/circulars/FAOP57525.pdf,All extant F&O contracts expire before Jio Financial demerger
+2023-07-20,RELIANCE,SPIN_OFF,,,,,,JIOFIN,1,261.85,https://www.ril.com/ar2023-24/pdf/RIL_IAR_2024.pdf,One JIOFIN share per RELIANCE share; provisional value from prior close less NSE special pre-open price
+2024-10-28,RELIANCE,BONUS,2,,500,,,,,,https://nsearchives.nseindia.com/content/circulars/FAOP64621.pdf,1-for-1 bonus; double shares and open contract quantity and halve strikes
+2025-06-16,BAJFINANCE,SPLIT_BONUS,10,,,,,,,,https://nsearchives.nseindia.com/content/circulars/FAOP68547.pdf,2-for-1 split plus 4-for-1 bonus gives factor 10
+2025-08-26,HDFCBANK,BONUS,2,,,,,,,,https://nsearchives.nseindia.com/content/circulars/FAOP69840.pdf,1-for-1 bonus
+2025-10-13,TATAMOTORS,EXPIRY_RESET,,,,,,,,,https://nsearchives.nseindia.com/content/circulars/FAOP70615.pdf,All extant F&O contracts expire before demerger
+2025-10-14,TATAMOTORS,SPIN_OFF,,,,,,TMCV,1,260.75,https://www.tatamotors.com/press-releases/demerger-of-cv-business-undertaking-of-tata-motors-ltd-into-a-separate-listed-company/,One TMCV share per original share; provisional value from prior close less NSE special pre-open price
+2025-10-24,TATAMOTORS,SYMBOL_CHANGE,,TMPV,,,,,,,https://nsearchives.nseindia.com/content/circulars/FAOP70882.pdf,Map post-demerger TMPV to continuous passenger-vehicle sleeve
+2025-11-17,ADANIENT,RIGHTS,0.970366,,309,300,73.73571429,,,,https://nsearchives.nseindia.com/content/circulars/FAOP71284.pdf,3-for-25 rights at INR 1800; theoretical entitlement sold for NSE stated benefit per share; old option lots 300 become 309
+2026-01-14,KOTAKBANK,SPLIT,5,,,,,,,,https://nsearchives.nseindia.com/content/circulars/FAOP72303.pdf,5-for-1 stock split
