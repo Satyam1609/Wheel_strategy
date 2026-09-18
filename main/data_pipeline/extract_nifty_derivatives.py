@@ -33,11 +33,14 @@ def legacy_lot(row, instrument):
     if denominator <= 0 or turnover <= 0:
         return 0
     estimate = turnover / denominator
-    lot = max(1, round(estimate))
-    if abs(lot - estimate) / estimate > 0.05:
-        return 0
     oi = int(float(field(row, "OPEN_INT") or 0))
-    return lot if not oi or oi % lot == 0 else 0
+    # VAL_INLAKH is rounded and futures turnover uses transaction prices, not
+    # the closing price used in this estimate. Search nearby integer divisors
+    # of OI instead of rejecting a valid lot when round(estimate) is off by one.
+    lower = max(1, math.floor(estimate * 0.95))
+    upper = max(lower, math.ceil(estimate * 1.05))
+    candidates = [lot for lot in range(lower, upper + 1) if not oi or oi % lot == 0]
+    return min(candidates, key=lambda lot: abs(lot - estimate)) if candidates else 0
 
 
 def parse_archive(path, day):

@@ -26,6 +26,13 @@ class NiftyWheelTests(unittest.TestCase):
         self.assertEqual(legacy_lot(future, "future"), 75)
         self.assertEqual(legacy_lot(option, "put"), 75)
 
+    def test_legacy_lot_uses_oi_divisor_when_turnover_rounds_up(self):
+        future = {
+            "CONTRACTS": "236005", "VAL_INLAKH": "2447687.43",
+            "CLOSE": "13709.1", "STRIKE_PR": "0", "OPEN_INT": "9184875",
+        }
+        self.assertEqual(legacy_lot(future, "future"), 75)
+
     def test_covered_call_respects_recovery_floor_and_future_lot(self):
         rows = [
             dict(instrument="call", expiry="2024-01-25", strike=105, close=3,
