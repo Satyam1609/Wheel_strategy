@@ -181,6 +181,19 @@ def build(output):
     crows = [["Coverage check", "Value"], ["Price dates", f"{coverage['price_dates']:,}"], ["Option dates", f"{coverage['option_dates']:,}"], ["Option rows", f"{coverage['option_rows']:,}"], ["Duplicate contract keys", str(coverage['duplicate_option_contract_keys'])], ["Price cells missing", str(sum(coverage['missing_price_cells'].values()))], ["Missing bid/ask fields", f"{coverage['missing_option_fields'].get('bid', 0):,} / {coverage['missing_option_fields'].get('ask', 0):,}"], ["Zero volume fields", f"{coverage['zero_option_fields'].get('volume', 0):,}"]]
     story += [table(crows, [5.7 * cm, 9.0 * cm]), Spacer(1, 8)]
     story += [P("Execution uses traded option closes and prior-day stock closes for strike choice. Lot sizes come from NSE fields or checked legacy inference. Dividends and corporate events are applied on ex-dates; short-option sale STT and share-delivery STT are charged. Puts are fully cash-secured and calls share-covered. The 20%/35% SPAN-plus-delivery proxy is checked daily against cash and haircut share collateral. Full assumptions are machine-readable in <tt>outputs_real/assumptions.json</tt>.", "Body2")]
+    cost_rows = [["Cost item", "Applied rule"],
+                 ["Brokerage", "INR 20 for every executed option, futures or delivery leg"],
+                 ["Option exchange / tax", "0.035% of premium exchange charge; 18% GST on brokerage + exchange; SEBI INR 10/crore"],
+                 ["Option-sale STT", "0.050% before Apr-2023; 0.0625% to Sep-2024; 0.100% to Mar-2026; 0.150% thereafter"],
+                 ["Option slippage", "25 bps of premium in the base case; 10 and 50 bps sensitivity cases"],
+                 ["Physical stock delivery", "0.1% STT plus delivery charges; mandatory strike delivery has no slippage"],
+                 ["Market stock sales", "Delivery costs plus 25 bps of notional for residual and spun-off-share sales"],
+                 ["Futures legs", "0.00173% exchange charge, GST, SEBI fee, 2 bps notional slippage; buy stamp duty 0.002%"],
+                 ["Futures-sale STT", "0.010% before Jun-2023; 0.0125% to Sep-2024; 0.020% thereafter"],
+                 ["Futures roll", "Charged as two executions: sell expiring contract and buy next contract"]]
+    story += [KeepTogether([P("Transaction-cost model", "Sub"),
+                            table(cost_rows, [4.0*cm, 11.5*cm], 6.5),
+                            P(f"Cumulative modeled costs are {money(sum(float(r['costs']) for r in diagnostics))} for Part A and {money(-float(nifty_attr['costs']))} for Part B. Option exercise STT is borne by the purchaser and is therefore not charged to this short-option writer; delivery STT is charged where shares move.", "Small")])]
     story += [P("For splits and bonuses, held share and open-option quantities scale by the exchange factor while strike, premium and cost basis scale inversely. The rights event uses the NSE strike and lot adjustment and credits modeled rights value; demergers create a separate spun-off claim, provisionally marked then sold at its first NSE listing close. Recorded cash dividends are credited to prior-close holdings on the ex-date. Expiry resets and symbol changes are recorded in the action log.", "Body2")]
     audit_rows = [["Ticker", "Recorded event(s)", "Largest adjusted 1-day drop"]]
     for row in action_audit:
