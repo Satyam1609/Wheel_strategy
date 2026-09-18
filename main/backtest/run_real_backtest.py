@@ -20,7 +20,8 @@ from main.data_pipeline.fetch_nse_data import TICKERS
 
 BASE = Path(__file__).resolve().parents[2]
 CAPITAL = 20_000_000.0
-RATE = 0.065
+RISK_FREE_RATE = 0.065
+DEFAULT_CASH_RATE = 0.0
 
 
 def load_prices(path, end):
@@ -293,7 +294,8 @@ def apply_corporate_actions(state, day, actions, applied, expiry_adjustments=Non
 
 
 def run(prices, option_path, inferred_lots, strike_otm=0.05, slippage_bps=25,
-        dividends=None, corporate_actions=None, spin_off_prices=None, nifty_tr=None):
+        dividends=None, corporate_actions=None, spin_off_prices=None, nifty_tr=None,
+        cash_rate=DEFAULT_CASH_RATE):
     states = {t: make_state(t) for t in TICKERS}
     benchmark = {t: dict(shares=CAPITAL / len(TICKERS) / prices[0][1][t],
                          cash=0.0, spin_offs={}, spin_off_marks={}) for t in TICKERS}
@@ -395,7 +397,7 @@ def run(prices, option_path, inferred_lots, strike_otm=0.05, slippage_bps=25,
                             state["skipped"] += 1
                             choice = None
                     if choice is None:
-                        accrued = state["cash"]*RATE/252
+                        accrued = state["cash"]*cash_rate/252
                         state["interest"] += accrued
                         daily[ticker] = state["cash"]+accrued+state["shares"]*spot + sum(
                             qty*state["spin_off_marks"][symbol] for symbol,qty in state["spin_offs"].items())
@@ -430,7 +432,7 @@ def run(prices, option_path, inferred_lots, strike_otm=0.05, slippage_bps=25,
                                            cash=state["cash"], shares=state["shares"],
                                            volume=choice["volume"], open_interest=choice["oi"],
                                            lot_size=lot, lot_inferred=choice["lot_inferred"]))
-            accrued = state["cash"]*RATE/252
+            accrued = state["cash"]*cash_rate/252
             state["cash"] += accrued
             state["interest"] += accrued
             equity = state["cash"] + state["shares"]*spot + sum(
@@ -495,8 +497,8 @@ def metrics(series, dates, initial_capital=CAPITAL):
     cagr = (series[-1]/initial_capital)**(1/years)-1
     return dict(start=initial_capital,end=series[-1],CAGR=cagr,
                 AnnVol=sd*math.sqrt(252),
-                Sharpe=(mean-RATE/252)/sd*math.sqrt(252) if sd else None,
-                Sortino=(mean-RATE/252)/downside_sd*math.sqrt(252) if downside_sd else None,
+                Sharpe=(mean-RISK_FREE_RATE/252)/sd*math.sqrt(252) if sd else None,
+                Sortino=(mean-RISK_FREE_RATE/252)/downside_sd*math.sqrt(252) if downside_sd else None,
                 MDD=mdd, MDD_peak=best_peak_date, MDD_trough=trough_date,
                 MDD_recovery=recovery_date, Calmar=cagr/abs(mdd) if mdd else None)
 
@@ -543,6 +545,7 @@ def main():
     ap.add_argument("--out",type=Path,default=BASE/"outputs_real")
     ap.add_argument("--strike-otm", type=float, default=0.05)
     ap.add_argument("--slippage-bps", type=float, default=costs.DEFAULT_SLIPPAGE_BPS)
+    ap.add_argument("--cash-rate", type=float, default=DEFAULT_CASH_RATE)
     args=ap.parse_args()
     prices=load_prices(BASE/"data/real_prices.csv",args.end)
     from main.backtest.select_universe import screen
@@ -555,7 +558,8 @@ def main():
     states,trades,equity,mark_gaps,expiry_adjustments,corporate_action_log,positions=run(
         prices, BASE/"data/real_options.csv", lots,
         strike_otm=args.strike_otm, slippage_bps=args.slippage_bps, dividends=dividends,
-        corporate_actions=corporate_actions, spin_off_prices=spin_off_prices, nifty_tr=nifty_tr)
+        corporate_actions=corporate_actions, spin_off_prices=spin_off_prices, nifty_tr=nifty_tr,
+        cash_rate=args.cash_rate)
     args.out.mkdir(parents=True,exist_ok=True)
     write_csv(args.out/"trade_log.csv",trades)
     write_csv(args.out/"equity_curve.csv",equity)
@@ -606,7 +610,7 @@ def main():
         "lot_size":"UDiFF NewBrdLotQty or data/legacy_lot_sizes.csv; GCD of legacy share open interest is the fallback",
         "dividends":"NSE ex-date cash distributions credited to prior-close share holdings in wheel and equal-weight universe",
         "dividend_file": "data/dividends.csv (parsed from archived NSE corporate-action register)",
-        "cash_interest_rate":RATE,"slippage_bps":args.slippage_bps,"strike_otm":args.strike_otm,
+        "cash_interest_rate":args.cash_rate,"slippage_bps":args.slippage_bps,"strike_otm":args.strike_otm,
         "corporate_actions":"Verified NSE split/bonus/rights and demerger contract events; spun-off shares marked then sold by wheel at first listing close",
         "corporate_action_file": "data/corporate_actions.csv",
         "spin_off_prices":"data/spinoff_prices.csv (NSE cached equity bhavcopies; BE and EQ series)",
@@ -629,7 +633,8 @@ def main():
             _, _, scenario_equity, _, _, _, _ = run(prices, BASE/"data/real_options.csv", lots,
                                                strike_otm=strike, slippage_bps=slip, dividends=dividends,
                                                corporate_actions=corporate_actions,
-                                               spin_off_prices=spin_off_prices, nifty_tr=nifty_tr)
+                                               spin_off_prices=spin_off_prices, nifty_tr=nifty_tr,
+                                               cash_rate=args.cash_rate)
         row = {"scenario": name, "strike_otm": strike, "slippage_bps": slip}
         row.update({f"wheel_{metric}": value for metric, value in
                     metrics([r["wheel"] for r in scenario_equity], dates).items()})

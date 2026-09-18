@@ -9,7 +9,7 @@
   "lot_size": "UDiFF NewBrdLotQty or data/legacy_lot_sizes.csv; GCD of legacy share open interest is the fallback",
   "dividends": "NSE ex-date cash distributions credited to prior-close share holdings in wheel and equal-weight universe",
   "dividend_file": "data/dividends.csv (parsed from archived NSE corporate-action register)",
-  "cash_interest_rate": 0.065,
+  "cash_interest_rate": 0.0,
   "slippage_bps": 25,
   "strike_otm": 0.05,
   "corporate_actions": "Verified NSE split/bonus/rights and demerger contract events; spun-off shares marked then sold by wheel at first listing close",

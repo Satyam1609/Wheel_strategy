@@ -1,6 +1,6 @@
 import unittest
 
-from main.backtest.run_real_backtest import (BASE, TICKERS, adjusted_reference_close, apply_corporate_actions,
+from main.backtest.run_real_backtest import (BASE, TICKERS, DEFAULT_CASH_RATE, adjusted_reference_close, apply_corporate_actions,
                                infer_entry_lot, load_dividends, load_nifty_tr, make_state,
                                margin_collateral, margin_proxy, metrics, revised_expiry, settle)
 from main.backtest.select_universe import screen
@@ -8,6 +8,9 @@ from main.backtest import costs
 
 
 class RealBacktestTests(unittest.TestCase):
+    def test_stock_base_case_credits_no_cash_interest(self):
+        self.assertEqual(DEFAULT_CASH_RATE, 0.0)
+
     def test_original_selection_and_inception_liquidity_are_recorded(self):
         rows = screen(BASE / "data/real_options.csv", "2020-01-01")
         self.assertEqual({r["ticker"] for r in rows}, set(TICKERS))

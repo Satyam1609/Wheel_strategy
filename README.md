@@ -79,6 +79,8 @@ The main NIFTY benchmark is the official daily NIFTY 50 total-return index (`dat
 
 The short-option writer pays option-sale STT on premium and 0.1% equity-delivery STT on delivered shares; option-exercise STT is borne by the option purchaser per [NSE's STT schedule](https://www.nseindia.com/static/invest/first-time-investor-sebi-turnover-fees-stt-other-levies). Mandatory assignment is at strike without discretionary execution slippage; residual stock sales are charged stock slippage. A 20%-notional SPAN-plus-exposure proxy rises to 35% for in-the-money deliverables in the last seven calendar days, with stock collateral valued at 80% of its close. The engine checks this at entry and logs daily headroom. These percentages are assumptions, not a replay of historical exchange SPAN files or broker-specific pledging rules. Bid/ask data are absent, so option-close execution still carries material uncertainty.
 
+Cash posted as security or margin earns no interest in either base-case strategy. Both runners expose `--cash-rate` only for an explicit alternative scenario.
+
 ## Part B implementation
 
 `main/data_pipeline/extract_nifty_derivatives.py` builds `data/nifty_derivatives.csv` from the cached NSE F&O archives. It retains NIFTY options whose expiry matches a listed NIFTY futures expiry, which selects monthly contracts without relying on weekday conventions, and carries the historical exchange lot size.
