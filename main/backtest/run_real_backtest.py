@@ -107,7 +107,7 @@ def make_state(ticker):
                 assignments=0, calls_away=0, skipped=0, stale_marks=0,
                 inferred_entries=0, unresolved_lots=0, premium=0.0, costs=0.0,
                 put_entries=0, call_entries=0,
-                option_realized_pnl=0.0,
+                option_realized_pnl=0.0, closed_premium=0.0,
                 delivery_pnl=0.0, dividends=0.0, post_delivery_days=0,
                 gross_basis=0.0, stock_cash_flow=0.0, interest=0.0)
 
@@ -175,10 +175,12 @@ def settle(state, day, spot, trades, slippage_bps=25):
     itm = (spot < strike) if opt["type"] == "put" else (spot > strike)
     intrinsic = max(strike - spot, 0) if opt["type"] == "put" else max(spot - strike, 0)
     state["option_realized_pnl"] += (opt["entry_premium"] - intrinsic) * qty
+    state["closed_premium"] += opt["entry_premium"] * qty
     action = "PUT_EXPIRED" if opt["type"] == "put" else "CALL_EXPIRED"
     charge = 0.0
     if itm:
-        charge = costs.assignment_cost(strike * qty, date.fromisoformat(day), slippage_bps)
+        charge = costs.assignment_cost(strike * qty, date.fromisoformat(day), slippage_bps,
+                                       side="buy" if opt["type"] == "put" else "sell")
         state["costs"] += charge
         if opt["type"] == "put":
             state["cash"] -= strike * qty + charge
@@ -602,7 +604,8 @@ def main():
         row={k:(v if k!="option" else bool(v)) for k,v in st.items()}
         row["assignment_rate"] = st["assignments"] / st["put_entries"] if st["put_entries"] else 0.0
         row["call_away_rate"] = st["calls_away"] / st["call_entries"] if st["call_entries"] else 0.0
-        row["premium_capture_ratio"] = st["option_realized_pnl"] / st["premium"] if st["premium"] else 0.0
+        row["premium_capture_ratio"] = (st["option_realized_pnl"] / st["closed_premium"]
+                                        if st["closed_premium"] else 0.0)
         row["average_post_delivery_days"] = st["post_delivery_days"] / st["calls_away"] if st["calls_away"] else 0.0
         diag.append(row)
     write_csv(args.out/"diagnostics.csv",diag)
@@ -617,7 +620,7 @@ def main():
         "mark_price":"NSE settlement; last observed settlement when contract row missing",
         "lot_size":"UDiFF NewBrdLotQty or data/legacy_lot_sizes.csv; GCD of legacy share open interest is the fallback",
         "dividends":"NSE ex-date cash distributions credited to prior-close share holdings in wheel and equal-weight universe",
-        "dividend_file": "data/dividends.csv (parsed from archived NSE corporate-action register)",
+        "dividend_file": "data/dividends.csv (archived NSE register plus documented supplemental public rows)",
         "cash_interest_rate":args.cash_rate,"slippage_bps":args.slippage_bps,"strike_otm":args.strike_otm,
         "corporate_actions":"Verified NSE split/bonus/rights and demerger contract events; spun-off shares marked then sold by wheel at first listing close",
         "corporate_action_file": "data/corporate_actions.csv",
@@ -627,6 +630,8 @@ def main():
         "residual_shares":"sold at stock close after call-away, with conservative delivery cost, to reset wheel to cash",
         "margin":"cash-secured puts and covered calls; 20% notional SPAN+exposure proxy, 35% for ITM deliverables in final 7 calendar days; 80% stock collateral value; no exchange SPAN file",
         "stt":"short-option writer pays option-sale STT and 0.1% share-delivery STT; purchaser, not writer, pays option-exercise STT",
+        "equity_delivery_stamp":"0.015% on assigned share purchases; constant-rate approximation",
+        "premium_capture":"realized option premium net of intrinsic settlement divided by premium sold on closed contracts",
     },indent=2))
     scenarios = [("base", args.strike_otm, args.slippage_bps),
                  ("strike_3pct", 0.03, args.slippage_bps),

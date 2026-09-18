@@ -26,6 +26,8 @@ class RealBacktestTests(unittest.TestCase):
     def test_writer_does_not_pay_purchaser_exercise_stt(self):
         delivery = 1_000_000
         self.assertLess(costs.assignment_cost(delivery, "2026-06-30"), 1500)
+        self.assertAlmostEqual(costs.assignment_cost(delivery, "2026-06-30", side="buy") -
+                               costs.assignment_cost(delivery, "2026-06-30", side="sell"), 150)
         self.assertGreater(costs.assignment_cost(delivery, "2026-06-30", market_execution=True),
                            costs.assignment_cost(delivery, "2026-06-30"))
 
@@ -110,6 +112,7 @@ class RealBacktestTests(unittest.TestCase):
         self.assertEqual((state["shares"], state["calls_away"]), (0, 1))
         self.assertEqual(trades[-1]["action"], "CALLED_AWAY")
         self.assertEqual(state["option_realized_pnl"], -6500)
+        self.assertEqual(state["closed_premium"], 3500)
 
     def test_exchange_can_move_expiry_forward_one_day(self):
         active = {"expiry": "2023-06-29", "type": "put", "strike": 900.0}

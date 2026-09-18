@@ -10,7 +10,7 @@
   "mark_price": "NSE settlement; last observed settlement when contract row missing",
   "lot_size": "UDiFF NewBrdLotQty or data/legacy_lot_sizes.csv; GCD of legacy share open interest is the fallback",
   "dividends": "NSE ex-date cash distributions credited to prior-close share holdings in wheel and equal-weight universe",
-  "dividend_file": "data/dividends.csv (parsed from archived NSE corporate-action register)",
+  "dividend_file": "data/dividends.csv (archived NSE register plus documented supplemental public rows)",
   "cash_interest_rate": 0.0,
   "slippage_bps": 25,
   "strike_otm": 0.05,
@@ -21,5 +21,7 @@
   "expiry_revisions": "detected when the same strike/type moves to an earlier expiry within 3 days",
   "residual_shares": "sold at stock close after call-away, with conservative delivery cost, to reset wheel to cash",
   "margin": "cash-secured puts and covered calls; 20% notional SPAN+exposure proxy, 35% for ITM deliverables in final 7 calendar days; 80% stock collateral value; no exchange SPAN file",
-  "stt": "short-option writer pays option-sale STT and 0.1% share-delivery STT; purchaser, not writer, pays option-exercise STT"
+  "stt": "short-option writer pays option-sale STT and 0.1% share-delivery STT; purchaser, not writer, pays option-exercise STT",
+  "equity_delivery_stamp": "0.015% on assigned share purchases; constant-rate approximation",
+  "premium_capture": "realized option premium net of intrinsic settlement divided by premium sold on closed contracts"
 }

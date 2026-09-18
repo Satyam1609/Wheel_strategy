@@ -31,7 +31,9 @@ series; flagged as an assumption):
     completeness).
   - Stamp duty: 0.003% of premium on the buy side only (per the buyer-side
     stamp duty convention; wheel is a net seller so this mostly applies to
-    the buy-to-close leg of a profit-take).
+    the buy-to-close leg of a profit-take). Assigned equity purchases use a
+    constant 0.015% delivery-value approximation; pre-July-2020 state-level
+    variation is not reconstructed.
   - Slippage: an explicit bp assumption on option entries and discretionary
     equity sales (see DEFAULT_SLIPPAGE_BPS); mandatory assignment at strike has
     none. Two alternative assumptions are run in the sensitivity section.
@@ -42,6 +44,7 @@ EXCH_TXN_RATE = 0.00035     # of premium, options
 GST_RATE = 0.18
 SEBI_FEE_PER_CR = 10.0
 STAMP_DUTY_BUY = 0.00003    # of premium, buy-side only
+EQUITY_DELIVERY_STAMP_BUY = 0.00015  # of delivery value; uniform-rate approximation
 
 DEFAULT_SLIPPAGE_BPS = 25    # of premium/notional, applied against the strategy
 ALT_SLIPPAGE_BPS = [10, 50]  # for sensitivity
@@ -75,7 +78,7 @@ def option_leg_cost(premium_value: float, date, side: str, slippage_bps: float =
 
 
 def assignment_cost(settlement_value: float, date, slippage_bps: float = DEFAULT_SLIPPAGE_BPS,
-                    market_execution: bool = False):
+                    market_execution: bool = False, side: str = "sell"):
     """One side of share delivery; option exercise STT belongs to the purchaser.
 
     `market_execution` denotes an actual exchange sale rather than mandatory
@@ -85,9 +88,10 @@ def assignment_cost(settlement_value: float, date, slippage_bps: float = DEFAULT
     exch = settlement_value * 0.0000325  # equity delivery-ish exch charge, approx
     gst = GST_RATE * (brokerage + exch)
     stt = settlement_value * 0.001
+    stamp = settlement_value * EQUITY_DELIVERY_STAMP_BUY if side == "buy" else 0.0
     slippage = settlement_value * slippage_bps / 10000.0 if market_execution else 0.0
     sebi = SEBI_FEE_PER_CR * settlement_value / 1e7
-    return brokerage + exch + gst + stt + slippage + sebi
+    return brokerage + exch + gst + stt + stamp + slippage + sebi
 
 
 def futures_leg_cost(notional: float, date, side: str,
