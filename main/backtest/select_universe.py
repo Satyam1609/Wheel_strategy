@@ -11,19 +11,6 @@ from pathlib import Path
 from main.data_pipeline.fetch_nse_data import TICKERS
 
 BASE = Path(__file__).resolve().parents[2]
-GROUPS = {
-    "RELIANCE": ("Energy", "top-10 option-turnover core"),
-    "SBIN": ("Public bank", "top-10 option-turnover core"),
-    "INDUSINDBK": ("Private bank", "top-10 option-turnover core"),
-    "ICICIBANK": ("Private bank", "top-10 option-turnover core"),
-    "INFY": ("IT services", "top-10 option-turnover core"),
-    "AXISBANK": ("Private bank", "top-10 option-turnover core"),
-    "BHARTIARTL": ("Telecom", "top-10 option-turnover core"),
-    "BAJFINANCE": ("NBFC", "top-10 option-turnover core"),
-    "TCS": ("IT services", "top-10 option-turnover core"),
-    "KOTAKBANK": ("Private bank", "top-10 option-turnover core"),
-    "ADANIENT": ("Conglomerate", "handpicked stress override"),
-}
 MIN_VOLUME = 250
 MIN_OPEN_INTEREST = 1_000_000
 MIN_ACTIVE_CONTRACTS = 15
@@ -155,9 +142,8 @@ def screen(path, first_day):
     for ticker in TICKERS:
         volume, oi, active = stats[ticker]
         eligible = volume >= MIN_VOLUME and oi >= MIN_OPEN_INTEREST and active >= MIN_ACTIVE_CONTRACTS
-        sector, reason = GROUPS[ticker]
-        result.append(dict(ticker=ticker, sector=sector, original_selection_reason=reason,
-                           formation_date=first_day, option_contracts_traded=volume,
+        result.append(dict(ticker=ticker, formation_date=first_day,
+                           option_contracts_traded=volume,
                            summed_contract_open_interest=oi, active_option_rows=active,
                            passes_inception_liquidity_check=eligible))
     if not all(row["passes_inception_liquidity_check"] for row in result):

@@ -1,12 +1,12 @@
-active_option_rows,formation_date,option_contracts_traded,original_selection_reason,passes_inception_liquidity_check,sector,summed_contract_open_interest,ticker
-96,2020-01-29,100477,top-10 option-turnover core,True,Energy,23891500,RELIANCE
-105,2020-01-29,59737,top-10 option-turnover core,True,Public bank,97548000,SBIN
-130,2020-01-29,31129,top-10 option-turnover core,True,Private bank,12658400,INDUSINDBK
-104,2020-01-29,39832,top-10 option-turnover core,True,Private bank,30490625,ICICIBANK
-82,2020-01-29,18222,top-10 option-turnover core,True,IT services,12759600,INFY
-73,2020-01-29,19834,top-10 option-turnover core,True,Private bank,13586400,AXISBANK
-98,2020-01-29,18767,top-10 option-turnover core,True,Telecom,20733051,BHARTIARTL
-66,2020-01-29,89825,top-10 option-turnover core,True,NBFC,3072500,BAJFINANCE
-81,2020-01-29,24200,top-10 option-turnover core,True,IT services,4558250,TCS
-55,2020-01-29,13770,top-10 option-turnover core,True,Private bank,5389200,KOTAKBANK
-44,2020-01-29,2624,handpicked stress override,True,Conglomerate,7084000,ADANIENT
+ticker,formation_date,option_contracts_traded,summed_contract_open_interest,active_option_rows,passes_inception_liquidity_check
+RELIANCE,2020-01-29,100477,23891500,96,True
+SBIN,2020-01-29,59737,97548000,105,True
+INDUSINDBK,2020-01-29,31129,12658400,130,True
+ICICIBANK,2020-01-29,39832,30490625,104,True
+INFY,2020-01-29,18222,12759600,82,True
+AXISBANK,2020-01-29,19834,13586400,73,True
+BHARTIARTL,2020-01-29,18767,20733051,98,True
+BAJFINANCE,2020-01-29,89825,3072500,66,True
+TCS,2020-01-29,24200,4558250,81,True
+KOTAKBANK,2020-01-29,13770,5389200,55,True
+ADANIENT,2020-01-29,2624,7084000,44,True

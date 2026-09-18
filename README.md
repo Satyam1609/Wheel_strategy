@@ -35,7 +35,7 @@ The report is written to `output_pdf/Wheel_Strategy_Research_Report.pdf`. The ba
 
 The first 20 trading sessions of 2020 rank all NSE stock-option underlyings by average option turnover. The top ten are RELIANCE, SBIN, INDUSINDBK, ICICIBANK, INFY, AXISBANK, BHARTIARTL, BAJFINANCE, TCS, and KOTAKBANK. ADANIENT is added as the single handpicked stress name. `data/universe_top15_liquidity.csv` records the ranking, turnover and open interest used for this decision.
 
-The formation window ends on 2020-01-28 and the strategy starts on 2020-01-29, avoiding look-ahead from the turnover ranking. The runner also audits option participation on the first backtest date: at least 250 contracts traded, 1 million summed share open interest, and 15 strike/expiry rows with both positive volume and open interest. `data/universe_selection.csv` records those readings, sectors, and selection reasons. The ADANIENT override and the requirement for continuous data through the sample leave selection and survivorship bias.
+The formation window ends on 2020-01-28 and the strategy starts on 2020-01-29, avoiding look-ahead from the turnover ranking. The runner also audits option participation on the first backtest date: at least 250 contracts traded, 1 million summed share open interest, and 15 strike/expiry rows with both positive volume and open interest. `data/universe_selection.csv` records those readings. The ADANIENT override and the requirement for continuous data through the sample leave selection and survivorship bias.
 
 Run `python3 -m main.backtest.select_universe --top 15` to calculate the 20-session turnover and lot-adjusted open-interest ranking from the existing raw option archives. It writes `data/universe_top15_liquidity.csv`.
 
