@@ -1,9 +1,12 @@
-"""Reproduce and audit the original twelve-name selection at inception.
+"""Reproduce and audit the demonstration's twelve-name universe.
 
-The original synthetic model specified a qualitative cross-sector shortlist
-with defensive and idiosyncratically stressed names. This module preserves
-that historical choice and applies a transparent first-day F&O participation
-check; it does not misrepresent the shortlist as an optimized ranking.
+The demonstration directly selected well-known, genuinely liquid large- and
+mid-cap F&O names across sectors and deliberately included ADANIENT and
+TATAMOTORS as high-idiosyncratic-volatility stress names. This module applies
+an inception participation check to that fixed shortlist. It does not execute
+the proposed live rule, which would rank the full NSE F&O universe by 20-day
+average option turnover and open interest and exclude symbols in the F&O ban
+period on more than 10% of in-sample days.
 """
 import csv
 from collections import defaultdict
