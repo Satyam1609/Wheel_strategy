@@ -6,6 +6,8 @@ import tempfile
 from datetime import datetime
 from pathlib import Path
 
+from main.data_pipeline.fetch_nse_data import TICKERS
+
 BASE = Path(__file__).resolve().parents[2]
 OUT = BASE / "outputs_real"
 os.environ.setdefault("MPLCONFIGDIR", str(Path(tempfile.gettempdir()) / "wheel_strategy_matplotlib"))
@@ -36,7 +38,7 @@ def main():
     series = {name: [float(r[name]) for r in rows]
               for name in ("wheel", "nifty_tr", "universe_bh")}
     labels = {"wheel": "Real-data wheel", "nifty_tr": "NIFTY 50 total return",
-              "universe_bh": "12-stock universe buy-and-hold"}
+              "universe_bh": f"{len(TICKERS)}-stock universe buy-and-hold"}
     colours = {"wheel": "#1769aa", "nifty_tr": "#d97706", "universe_bh": "#238636"}
 
     plt.style.use("default")
