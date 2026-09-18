@@ -12,7 +12,7 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import cm
-from reportlab.platypus import Image, KeepTogether, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
+from reportlab.platypus import Image, KeepTogether, PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
 BASE = Path(__file__).resolve().parents[2]
 REAL = BASE / "outputs_real"
@@ -129,11 +129,12 @@ def build(output):
         r = by_series[key]
         rows.append([labels[key], money(r["end"]), pct(r["CAGR"]), pct(r["AnnVol"]), num(r["Sharpe"]), num(r["Sortino"]), pct(r["MDD"]), num(r["Calmar"])])
     story += [table(rows, [2.7 * cm, 2.7 * cm, 1.7 * cm, 1.8 * cm, 1.4 * cm, 1.5 * cm, 1.7 * cm, 1.4 * cm], 6.5), Spacer(1, 8)]
+    story += [P(f"<b>Finding.</b> The stock wheel finished below both benchmarks: {pct(by_series['wheel']['CAGR'])} CAGR versus {pct(by_series['nifty_tr']['CAGR'])} for NIFTY 50 TR and {pct(by_series['universe_bh']['CAGR'])} for the selected-universe buy-and-hold. It reduced volatility and maximum drawdown relative to both, but its Sharpe ratio remained below NIFTY TR. Premium collection therefore did not translate into superior total or risk-adjusted return. The March 2020 episode confirms the expected short-volatility and left-tail exposure.", "Body2")]
     story += [Image(str(REAL / "real_equity_curves.png"), width=17.0 * cm, height=8.4 * cm), P("Figure 1. Portfolio equity curves from the real-data run.", "Small")]
     story += [Image(str(REAL / "real_drawdown.png"), width=17.0 * cm, height=6.8 * cm), P("Figure 2. Drawdown calculated from the wheel equity curve.", "Small")]
 
     story += [P("2. Part A strategy specification and diagnostics", "Section"),
-              P("<b>Capital and entry.</b> INR 20 million is split equally across 12 fixed sleeves. Each sleeve waits until the second price date, uses the previous trading day's adjusted underlying close as its strike reference, and models sale at that day's observed option close. A contract needs positive premium, volume and open interest. The nearest listed monthly expiry must be at least seven calendar days away; size is rounded down to whole exchange lots. Cash collateral earns no interest.", "Body2"),
+              P("<b>Capital and entry.</b> INR 20 million is split equally across 12 fixed sleeves. Each sleeve waits until the second price date, uses the previous trading day's adjusted underlying close as its strike reference, and models sale at that day's observed option close. A contract needs positive premium, volume and open interest. The nearest listed monthly expiry must be at least seven calendar days away; size is rounded down to whole exchange lots. Cash collateral earns no interest. The 6.5% rate used in Sharpe and Sortino is a performance hurdle, not portfolio income; a yield-bearing collateral alternative is available through <tt>--cash-rate</tt> but is not the base case because no Treasury-bill or liquid-fund position is modeled.", "Body2"),
               P("<b>Wheel rules.</b> With no shares, sell the liquid put nearest 5% below the reference close and reserve the full strike obligation. An ITM put at expiry delivers shares at strike. With shares, sell the call nearest 5% above the reference close, never below the assigned net cost basis; if no qualifying quoted strike exists, sit out. An ITM call delivers the covered shares at strike and any residual shares are sold to reset to cash. Otherwise the expired leg is replaced in the next eligible session. There are no discretionary early profit takes, stops or rolls. Mandatory assignment has delivery costs but no execution slippage; modeled market sales do. A 20% option-margin proxy rises to 35% for ITM deliverables in the final seven calendar days, with pledged shares valued at 80% of close.", "Body2"),
               P(f"The engine recorded <b>{len(trades):,} trade-log events</b>, including {actions.get('SELL_PUT', 0)} short-put entries, {actions.get('ASSIGNED', 0)} assignments, {actions.get('SELL_CALL', 0)} covered-call entries, and {actions.get('CALLED_AWAY', 0)} call-aways. It inferred lots for {sum(int(r['inferred_entries']) for r in diagnostics):,} option entries, carried {sum(int(r['stale_marks']) for r in diagnostics):,} stale marks, and recorded {len(read_csv('expiry_adjustments.csv'))} expiry-date revisions.", "Body2")]
     stock_logic = [["Decision", "Rule used by the engine"],
@@ -152,7 +153,7 @@ def build(output):
     for r in diagnostics:
         drows.append([r["ticker"], r["put_entries"], pct(r["assignment_rate"]), pct(r["call_away_rate"]), num(r["average_post_delivery_days"], 1), pct(r["premium_capture_ratio"]), money(r["premium"]), money(r["costs"])])
     story += [table(drows, [2.7 * cm, 1.2 * cm, 1.6 * cm, 1.4 * cm, 1.7 * cm, 1.5 * cm, 2.5 * cm, 2.3 * cm], 6.1),
-              P("CSPs counts short-put entries. Avg days covers completed delivery-to-call-away episodes. Capture is realized option premium less intrinsic settlement losses, divided by total premium sold; open contracts enter the denominator until expiry.", "Small")]
+              P("CSPs counts short-put entries. Avg days covers completed delivery-to-call-away episodes. Premium capture is realized option premium less intrinsic settlement losses, divided by total premium sold; open contracts enter the denominator until expiry.", "Small")]
     story += [P("Per-name risk and return", "Sub")]
     nrows = [["Ticker", "CAGR", "Vol", "Sharpe", "Sortino", "MDD", "Peak", "Trough", "Recovery", "Calmar"]]
     for r in per_name:
@@ -175,6 +176,12 @@ def build(output):
                            P(f"Realized stock delivery P&amp;L was {money(sum(float(r['delivery_pnl']) for r in diagnostics))}; it is a subset of the stock line, which also marks remaining shares to the final close. Adding it again would double-count returns.", "Small")])]
 
     story += [P("3. Data and methodology", "Section"), P(f"The downloader checked weekdays from {coverage['window'][0]} through {coverage['window'][1]}. It found {coverage['price_dates']:,} price dates, {coverage['option_dates']:,} option dates, and {coverage['option_rows']:,} option rows. {coverage['dates_with_all_three_reports_missing']} weekdays had all three NSE reports missing; one date had prices but no options report.", "Body2")]
+    data_rows = [["Dataset", "Granularity and use", "Known deficiency"],
+                 ["NSE equity/index bhavcopy", "Daily closes for 12 stocks and NIFTY 50", "No intraday path or executable close quote"],
+                 ["NSE F&amp;O bhavcopy", "Daily contract close, settlement, volume, OI and lot fields", "No bid/ask or Greeks; many zero-volume rows"],
+                 ["NSE corporate-action register", "Ex-date dividends, splits, bonuses, rights and demergers", "Audit cannot prove every small distribution is captured"],
+                 ["NSE Indices NIFTY 50 TRI", "Official daily total-return benchmark", "Benchmark is investable only through a tracking vehicle"]]
+    story += [KeepTogether([P("Source inventory", "Sub"), table(data_rows, [3.5*cm, 6.2*cm, 5.8*cm], 6.4)])]
     story += [P("Universe selection", "Sub"),
               P(f"The original model defined a fixed {len(selection)}-name F&amp;O shortlist spanning energy, banks, IT, industrials, autos, and NBFCs. TCS represented the lower-volatility sleeve; TATAMOTORS and ADANIENT supplied cyclical and idiosyncratic stress. We retained this qualitative choice and tested option participation on {selection[0]['formation_date']} before the first strategy entry. Eligibility required at least 250 option contracts traded, 1 million summed share open interest, and 15 rows with both volume and open interest; all 12 passed. Exact readings are in <tt>data/universe_selection.csv</tt>.", "Body2"),
               P("<b>Assignment gap.</b> This checks liquidity only within an already chosen shortlist. It does not satisfy the brief's requested objective selection from the full F&amp;O candidate pool, and the fixed names have survivorship bias. A compliant new universe needs an ex-ante all-market screen and a rebuilt backtest; the present performance should be read with that limitation.", "Callout")]
@@ -210,7 +217,8 @@ def build(output):
             srows.append([r["scenario"], pct(r["strike_otm"]), f"{r['slippage_bps']} bps", pct(r["wheel_CAGR"]), pct(r["wheel_AnnVol"]), num(r["wheel_Sharpe"]), pct(r["wheel_MDD"])])
         story += [KeepTogether([P("4. Sensitivity and stress narrative", "Section"),
                                table(srows, [3.2 * cm, 2.2 * cm, 2.1 * cm, 1.8 * cm, 1.8 * cm, 1.7 * cm, 1.9 * cm], 6.8)])]
-        story += [P("The strike choice matters: moving from 5% to 3% OTM lowers Sharpe from 0.66 to 0.58; moving to 8% lowers it to 0.53. The 10-50 bps slippage range changes CAGR by only about 0.05 percentage points, but that narrow modeled range cannot validate fills when every bid/ask field is missing.", "Body2")]
+        sensitivity_by_name = {r["scenario"]: r for r in sensitivity}
+        story += [P(f"The strike choice matters: moving from 5% to 3% OTM changes Sharpe from {num(sensitivity_by_name['base']['wheel_Sharpe'])} to {num(sensitivity_by_name['strike_3pct']['wheel_Sharpe'])}; moving to 8% changes it to {num(sensitivity_by_name['strike_8pct']['wheel_Sharpe'])}. The 10-50 bps slippage range changes CAGR by only about 0.05 percentage points, but that narrow modeled range cannot validate fills when every bid/ask field is missing.", "Body2")]
     else:
         story += [P("4. Sensitivity and stress narrative", "Section")]
     wheel = by_series["wheel"]
@@ -260,6 +268,17 @@ def build(output):
     story += [KeepTogether([P("Part B decision logic", "Sub"),
                             table(nifty_logic, [3.5*cm, 12.0*cm], 6.7)])]
     story += [P(f"Across 2020-01-01 to 2026-06-30, the engine sold {nifty_diag['put_entries']} puts; {pct(nifty_diag['assignment_rate'])} settled ITM and initiated futures exposure. It sold {nifty_diag['call_entries']} calls, with {pct(nifty_diag['call_away_rate'])} ending in a synthetic call-away, and completed {nifty_diag['futures_rolls']} futures rolls. It recorded {nifty_diag['stale_option_marks']} stale option marks and {nifty_diag['stale_future_marks']} stale futures marks, which retain the last settlement. The account reserves the full put strike obligation; while futures and a short call are held it uses the larger of 15% of futures notional and 20% of call notional as a documented margin proxy. Cash posted as security or margin earns no interest in the Part B base case.", "Body2")]
+    comparison_rows = [["Issue", "Stock wheel", "Synthetic NIFTY wheel"],
+                       ["Assignment", "Physical shares move at strike", "Option pays cash intrinsic; futures bought next session"],
+                       ["Primary risk", "Market beta plus single-name gaps and corporate events", "Diversified index beta, but concentrated market-crash exposure"],
+                       ["Basis / timing", "Option and delivered stock share one underlying", "Expiry spot settlement versus next-session futures entry creates gap and basis risk"],
+                       ["Roll", "No stock roll after delivery", f"{nifty_diag['futures_rolls']} futures rolls; each pays two legs; cumulative raw calendar spread {float(nifty_diag['roll_basis_points']):,.2f} index points"],
+                       ["Margin offsets", "Cash-secured put; covered stock supports call after 20% haircut", "Uses max(15% futures, 20% call), assuming an offset; actual historical SPAN may differ"],
+                       ["Lot granularity", "Each stock sleeve rounds independently to its exchange lot", "One index lot controls all units; lot revisions round exposure down to a whole new lot"],
+                       ["Expiry choice", "Nearest monthly with at least 7 DTE", "Monthly expiries aligned to futures; weekly would add turnover and near-expiry gamma"]]
+    story += [KeepTogether([P("Part A versus Part B mechanics and risk", "Sub"),
+                            table(comparison_rows, [3.2*cm, 6.1*cm, 6.2*cm], 6.2)]),
+              P("Futures basis normally converges toward spot at expiry, but this engine can still lose from the gap between option settlement and the next-session futures purchase, and from the price difference between expiring and next-month futures at a roll. Margin offsets reduce the proxy requirement rather than eliminating economic leverage. The index removes company-specific delivery shocks, while leaving the portfolio exposed to a common market sell-off across every constituent.", "Body2")]
     part_b_attr = [["Reconciled component", "INR"],
                    ["Starting capital", money(nifty_attr["starting_capital"])],
                    ["Option premium", money(nifty_attr["premium_received"])],
@@ -279,7 +298,17 @@ def build(output):
               P("The base case ended below NIFTY total return but with lower volatility and a materially smaller maximum drawdown. The 3% OTM case improved return while deepening drawdown; 8% OTM reduced both premium income and return. Futures slippage matters more than option-premium slippage because it is charged on full futures notional.", "Body2"),
               P("The option expiry cash debit uses intrinsic value calculated from the expiry-day NIFTY close because the historical archive does not supply the official final-settlement index as a clean separate field throughout the sample. Entry uses the next session's observed close, not its open, and historical SPAN files and executable bid/ask quotes are unavailable. These are material implementation limits. Weekly expiries were excluded by matching option expiries to listed NIFTY futures expiries; a weekly version would have higher turnover and near-expiry gamma exposure.", "Callout")]
 
-    story += [P("6. Limitations, sources and reproducibility", "Section"),
+    coverage_rows = [["Assignment item", "Report evidence", "Status"],
+                     ["2020-01-01 to 2026-06-30 EOD data", "Section 3 source inventory and coverage audit", "Covered"],
+                     ["Objective 8-15 stock liquidity screen", "12 names pass inception liquidity thresholds, but shortlist was chosen first", "Gap"],
+                     ["Put, delivery, call, sizing, exits and margin", "Section 2 rules, decision table and worked RELIANCE example", "Covered"],
+                     ["Costs, STT and slippage sensitivity", "Section 3 cost table; Section 4 sensitivity", "Covered"],
+                     ["Portfolio and per-name metrics / diagnostics", "Sections 1-2 tables and reconciled P&amp;L", "Covered"],
+                     ["Benchmarks and worst-drawdown narrative", "NIFTY 50 TR, universe buy-and-hold, and March 2020 walk-through", "Covered"],
+                     ["Synthetic-index design and comparison", "Section 5 mechanics, basis, roll, margin, lots and risk comparison", "Covered"],
+                     ["Biases, sources, verdict and reproducibility", "Section 6 and machine-readable output files", "Covered"]]
+    story += [PageBreak(), P("6. Assignment coverage, limitations and reproducibility", "Section"),
+              table(coverage_rows, [4.6*cm, 8.5*cm, 2.0*cm], 6.3),
               P("Daily equity and F&amp;O bhavcopies come from <link href='https://www.nseindia.com/all-reports'>NSE reports</link>; cache paths and missing dates appear in <tt>data/source_manifest.json</tt>, while archive URL patterns are in <tt>main/data_pipeline/fetch_nse_data.py</tt>. Event links are in <tt>data/corporate_actions.csv</tt>. Benchmark: <link href='https://www.niftyindices.com/reports/historical-data'>NSE Indices historical TRI</link>. Tax: <link href='https://www.nseindia.com/static/invest/first-time-investor-sebi-turnover-fees-stt-other-levies'>NSE STT rates and payer</link>. Margin: <link href='https://www.nseindia.com/static/trade/members-faqs-margin-collection-and-reporting'>NSE margin FAQ</link>. The 20%/35% coefficients are proxies, not daily exchange SPAN calculations. Unlisted strikes and stale option marks are possible; bid/ask fields are absent. Previous-day stock prices avoid strike-selection look-ahead, but filling at the same day's observed option close remains optimistic. Fixed 2026-observable names introduce survivorship bias.", "Body2"),
               P(f"<b>Deployability verdict.</b> The stock wheel returned {pct(by_series['wheel']['CAGR'])} annualized and the synthetic NIFTY wheel returned {pct(nw['CAGR'])}, versus {pct(by_series['nifty_tr']['CAGR'])} for NIFTY 50 total return. Neither implementation credits interest on option security or futures-margin cash. The evidence is not sufficient for a production deployment claim until execution prices and historical margins are tested with more realistic data and the Part A universe is selected objectively.", "Callout"),
               P("Run <tt>python3 -m main.data_pipeline.fetch_nifty_tr</tt>, <tt>python3 -m main.data_pipeline.extract_nifty_derivatives</tt>, <tt>python3 -m main.backtest.run_real_backtest</tt>, <tt>python3 -m main.backtest.plot_real_results</tt>, <tt>python3 -m main.backtest.run_nifty_wheel</tt>, and finally <tt>python3 -m main.report.build_report</tt>. Tests are isolated under <tt>tests/</tt>. Install <tt>requirements.txt</tt> first.", "Body2")]
