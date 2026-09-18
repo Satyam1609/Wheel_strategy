@@ -1,4 +1,4 @@
-"""Screen all twelve sleeves for price discontinuities after recorded events.
+"""Screen configured sleeves for price discontinuities after recorded events.
 
 This is a diagnostic, not an exhaustive corporate-action database. Cash
 dividends are parsed from the NSE action register by generate_dividends.py.
@@ -28,7 +28,7 @@ def audit():
         by_ticker[action["ticker"]].append(action)
     register = json.loads((BASE / "data/nse_corporate_actions_raw.json").read_text())
     for symbol, payload in register.items():
-        ticker = "TATAMOTORS" if symbol == "TMPV" else symbol
+        ticker = symbol
         for row in payload["rows"]:
             purpose = row["subject"].lower()
             if "dividend" in purpose or "buyback" in purpose or "buy back" in purpose or "annual general meeting" in purpose:

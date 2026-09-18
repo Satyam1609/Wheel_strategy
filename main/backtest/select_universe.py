@@ -12,18 +12,17 @@ from main.data_pipeline.fetch_nse_data import TICKERS
 
 BASE = Path(__file__).resolve().parents[2]
 GROUPS = {
-    "RELIANCE": ("Energy", "large diversified energy"),
-    "HDFCBANK": ("Private bank", "large bank"),
-    "ICICIBANK": ("Private bank", "large bank"),
-    "TCS": ("IT services", "lower-volatility / defensive sleeve"),
-    "INFY": ("IT services", "IT peer diversification"),
-    "SBIN": ("Public bank", "public-sector bank exposure"),
-    "AXISBANK": ("Private bank", "bank peer diversification"),
-    "KOTAKBANK": ("Private bank", "bank peer diversification"),
-    "LT": ("Industrials", "industrial / infrastructure exposure"),
-    "TATAMOTORS": ("Autos", "cyclical stressed-name exposure"),
-    "BAJFINANCE": ("NBFC", "consumer finance exposure"),
-    "ADANIENT": ("Conglomerate", "high idiosyncratic-risk exposure"),
+    "RELIANCE": ("Energy", "top-10 option-turnover core"),
+    "SBIN": ("Public bank", "top-10 option-turnover core"),
+    "INDUSINDBK": ("Private bank", "top-10 option-turnover core"),
+    "ICICIBANK": ("Private bank", "top-10 option-turnover core"),
+    "INFY": ("IT services", "top-10 option-turnover core"),
+    "AXISBANK": ("Private bank", "top-10 option-turnover core"),
+    "BHARTIARTL": ("Telecom", "top-10 option-turnover core"),
+    "BAJFINANCE": ("NBFC", "top-10 option-turnover core"),
+    "TCS": ("IT services", "top-10 option-turnover core"),
+    "KOTAKBANK": ("Private bank", "top-10 option-turnover core"),
+    "ADANIENT": ("Conglomerate", "handpicked stress override"),
 }
 MIN_VOLUME = 250
 MIN_OPEN_INTEREST = 1_000_000

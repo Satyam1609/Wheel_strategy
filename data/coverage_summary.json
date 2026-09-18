@@ -6,20 +6,20 @@
   "weekday_dates_checked": 1695,
   "price_dates": 1604,
   "option_dates": 1603,
-  "option_rows": 4891323,
+  "option_rows": 4380500,
   "dates_with_all_three_reports_missing": 91,
   "dates_with_equity_symbol_gap": 0,
   "dates_with_options_report_missing": 1,
   "missing_price_cells": {},
   "missing_option_fields": {
-    "bid": 4891323,
-    "ask": 4891323,
-    "lot_size": 3776528
+    "bid": 4380500,
+    "ask": 4380500,
+    "lot_size": 3395571
   },
   "zero_option_fields": {
-    "volume": 3143833,
-    "open_interest": 2724347,
-    "settlement": 109261
+    "volume": 2848434,
+    "open_interest": 2474060,
+    "settlement": 98116
   },
   "duplicate_option_contract_keys": 0,
   "price_dates_without_options": [

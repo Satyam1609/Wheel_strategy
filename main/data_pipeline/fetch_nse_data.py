@@ -16,10 +16,10 @@ from pathlib import Path
 
 
 TICKERS = (
-    "RELIANCE", "HDFCBANK", "ICICIBANK", "TCS", "INFY", "SBIN",
-    "AXISBANK", "KOTAKBANK", "LT", "TATAMOTORS", "BAJFINANCE", "ADANIENT",
+    "RELIANCE", "SBIN", "INDUSINDBK", "ICICIBANK", "INFY", "AXISBANK",
+    "BHARTIARTL", "BAJFINANCE", "TCS", "KOTAKBANK", "ADANIENT",
 )
-SYMBOL_ALIASES = {"TMPV": "TATAMOTORS"}
+SYMBOL_ALIASES = {}
 PRICE_COLUMNS = ("date", "NIFTY", *TICKERS)
 OPTION_COLUMNS = (
     "date", "ticker", "expiry", "option_type", "strike", "bid", "ask",

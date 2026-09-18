@@ -142,61 +142,64 @@ BAJFINANCE,2024-04-25,125,legacy NSE turnover estimate validated by open-interes
 BAJFINANCE,2024-05-30,125,legacy NSE turnover estimate validated by open-interest divisibility
 BAJFINANCE,2024-06-27,125,legacy NSE turnover estimate validated by open-interest divisibility
 BAJFINANCE,2024-07-25,125,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2020-01-30,500,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2020-02-27,500,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2020-03-26,500,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2020-04-30,500,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2020-05-28,500,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2020-06-25,500,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2020-07-30,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2020-08-27,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2020-09-24,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2020-10-29,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2020-11-26,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2020-12-31,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2021-01-28,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2021-02-25,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2021-03-25,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2021-04-29,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2021-05-27,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2021-06-24,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2021-07-29,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2021-08-26,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2021-09-30,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2021-10-28,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2021-11-25,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2021-12-30,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2022-01-27,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2022-02-24,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2022-03-31,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2022-04-28,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2022-05-26,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2022-06-30,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2022-07-28,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2022-08-25,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2022-09-29,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2022-10-27,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2022-11-24,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2022-12-29,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2023-01-25,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2023-02-23,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2023-03-29,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2023-04-27,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2023-05-25,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2023-06-29,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2023-07-27,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2023-08-31,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2023-09-28,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2023-10-26,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2023-11-30,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2023-12-28,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2024-01-25,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2024-02-29,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2024-03-28,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2024-04-25,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2024-05-30,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2024-06-27,550,legacy NSE turnover estimate validated by open-interest divisibility
-HDFCBANK,2024-07-25,550,legacy NSE turnover estimate validated by open-interest divisibility
+BHARTIARTL,2020-01-30,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2020-02-27,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2020-03-26,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2020-04-30,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2020-05-28,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2020-06-25,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2020-07-30,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2020-08-27,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2020-09-24,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2020-10-29,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2020-11-26,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2020-12-31,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2021-01-28,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2021-02-25,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2021-03-25,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2021-04-29,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2021-05-27,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2021-06-24,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2021-07-29,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2021-08-26,1851,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2021-09-30,1886,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2021-10-28,1886,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2021-11-25,1886,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2021-12-30,1886,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2022-01-27,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2022-02-24,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2022-03-31,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2022-04-28,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2022-05-26,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2022-06-30,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2022-07-28,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2022-08-25,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2022-09-29,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2022-10-27,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2022-11-24,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2022-12-29,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2023-01-25,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2023-02-23,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2023-03-29,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2023-04-27,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2023-05-25,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2023-06-28,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2023-06-29,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2023-07-27,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2023-08-31,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2023-09-28,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2023-10-26,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2023-11-30,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2023-12-28,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2024-01-25,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2024-02-29,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2024-03-28,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2024-04-25,950,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2024-05-30,475,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2024-06-27,475,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2024-07-25,475,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2024-08-29,475,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+BHARTIARTL,2024-09-26,475,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
 ICICIBANK,2020-01-30,1375,legacy NSE turnover estimate validated by open-interest divisibility
 ICICIBANK,2020-02-27,1375,legacy NSE turnover estimate validated by open-interest divisibility
 ICICIBANK,2020-03-26,1375,legacy NSE turnover estimate validated by open-interest divisibility
@@ -251,6 +254,64 @@ ICICIBANK,2024-04-25,700,legacy NSE turnover estimate validated by open-interest
 ICICIBANK,2024-05-30,700,legacy NSE turnover estimate validated by open-interest divisibility
 ICICIBANK,2024-06-27,700,legacy NSE turnover estimate validated by open-interest divisibility
 ICICIBANK,2024-07-25,700,legacy NSE turnover estimate validated by open-interest divisibility
+INDUSINDBK,2020-01-30,400,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2020-02-27,400,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2020-03-26,400,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2020-04-30,400,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2020-05-28,400,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2020-06-25,400,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2020-07-30,800,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2020-08-27,800,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2020-09-24,800,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2020-10-29,800,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2020-11-26,800,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2020-12-31,800,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2021-01-28,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2021-02-25,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2021-03-25,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2021-04-29,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2021-05-27,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2021-06-24,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2021-07-29,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2021-08-26,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2021-09-30,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2021-10-28,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2021-11-25,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2021-12-30,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2022-01-27,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2022-02-24,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2022-03-31,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2022-04-28,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2022-05-26,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2022-06-30,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2022-07-28,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2022-08-25,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2022-09-29,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2022-10-27,900,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2022-11-24,450,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2022-12-29,450,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2023-01-25,450,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2023-02-23,450,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2023-03-29,450,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2023-04-27,450,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2023-05-25,450,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2023-06-28,450,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2023-06-29,450,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2023-07-27,500,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2023-08-31,500,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2023-09-28,500,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2023-10-26,500,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2023-11-30,500,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2023-12-28,500,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2024-01-25,500,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2024-02-29,500,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2024-03-28,500,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2024-04-25,500,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2024-05-30,500,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2024-06-27,500,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2024-07-25,500,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2024-08-29,500,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
+INDUSINDBK,2024-09-26,500,legacy NSE open-interest divisibility; BHARTIARTL rights-period lots use NSE FAOP49720
 INFY,2020-01-30,1200,legacy NSE turnover estimate validated by open-interest divisibility
 INFY,2020-02-27,1200,legacy NSE turnover estimate validated by open-interest divisibility
 INFY,2020-03-26,1200,legacy NSE turnover estimate validated by open-interest divisibility
@@ -354,56 +415,6 @@ KOTAKBANK,2024-04-25,400,legacy NSE turnover estimate validated by open-interest
 KOTAKBANK,2024-05-30,400,legacy NSE turnover estimate validated by open-interest divisibility
 KOTAKBANK,2024-06-27,400,legacy NSE turnover estimate validated by open-interest divisibility
 KOTAKBANK,2024-07-25,400,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2020-01-30,375,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2020-02-27,375,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2020-03-26,375,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2020-04-30,375,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2020-05-28,375,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2020-11-26,550,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2020-12-31,550,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2021-01-28,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2021-02-25,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2021-03-25,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2021-04-29,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2021-05-27,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2021-06-24,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2021-07-29,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2021-08-26,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2021-09-30,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2021-10-28,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2021-11-25,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2021-12-30,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2022-01-27,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2022-02-24,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2022-03-31,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2022-04-28,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2022-05-26,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2022-06-30,575,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2022-07-28,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2022-08-25,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2022-09-29,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2022-10-27,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2022-11-24,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2022-12-29,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2023-01-25,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2023-02-23,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2023-03-29,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2023-04-27,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2023-05-25,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2023-06-29,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2023-07-27,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2023-08-31,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2023-09-28,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2023-10-26,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2023-11-30,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2023-12-28,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2024-01-25,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2024-02-29,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2024-03-28,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2024-04-25,300,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2024-05-30,150,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2024-06-27,150,legacy NSE turnover estimate validated by open-interest divisibility
-LT,2024-07-25,150,legacy NSE turnover estimate validated by open-interest divisibility
 RELIANCE,2020-01-30,500,legacy NSE turnover estimate validated by open-interest divisibility
 RELIANCE,2020-02-27,500,legacy NSE turnover estimate validated by open-interest divisibility
 RELIANCE,2020-03-26,500,legacy NSE turnover estimate validated by open-interest divisibility
@@ -507,58 +518,6 @@ SBIN,2024-04-25,1500,legacy NSE turnover estimate validated by open-interest div
 SBIN,2024-05-30,750,legacy NSE turnover estimate validated by open-interest divisibility
 SBIN,2024-06-27,750,legacy NSE turnover estimate validated by open-interest divisibility
 SBIN,2024-07-25,750,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2020-01-30,4300,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2020-02-27,4300,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2020-03-26,4300,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2020-04-30,4300,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2020-05-28,4300,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2020-09-24,5700,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2020-10-29,5700,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2020-11-26,5700,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2020-12-31,5700,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2021-01-28,5700,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2021-02-25,5600,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2021-03-25,5700,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2021-04-29,5700,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2021-05-27,2850,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2021-06-24,2850,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2021-07-29,2850,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2021-08-26,2850,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2021-09-30,2850,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2021-10-28,2850,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2021-11-25,2850,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2021-12-30,2850,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2022-01-27,2850,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2022-02-24,2850,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2022-03-31,2850,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2022-04-28,2850,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2022-05-26,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2022-06-30,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2022-07-28,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2022-08-25,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2022-09-29,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2022-10-27,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2022-11-24,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2022-12-29,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2023-01-25,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2023-02-23,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2023-03-29,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2023-04-27,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2023-05-25,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2023-06-29,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2023-07-27,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2023-08-31,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2023-09-28,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2023-10-26,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2023-11-30,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2023-12-28,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2024-01-25,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2024-02-29,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2024-03-28,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2024-04-25,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2024-05-30,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2024-06-27,1425,legacy NSE turnover estimate validated by open-interest divisibility
-TATAMOTORS,2024-07-25,550,legacy NSE turnover estimate validated by open-interest divisibility
 TCS,2020-01-30,250,legacy NSE turnover estimate validated by open-interest divisibility
 TCS,2020-02-27,250,legacy NSE turnover estimate validated by open-interest divisibility
 TCS,2020-03-26,250,legacy NSE turnover estimate validated by open-interest divisibility

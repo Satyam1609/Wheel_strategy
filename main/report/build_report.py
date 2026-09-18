@@ -134,7 +134,7 @@ def build(output):
     story += [Image(str(REAL / "real_drawdown.png"), width=17.0 * cm, height=6.8 * cm), P("Figure 2. Drawdown calculated from the wheel equity curve.", "Small")]
 
     story += [P("2. Part A strategy specification and diagnostics", "Section"),
-              P("<b>Capital and entry.</b> INR 20 million is split equally across 12 fixed sleeves. Each sleeve waits until the second price date, uses the previous trading day's adjusted underlying close as its strike reference, and models sale at that day's observed option close. A contract needs positive premium, volume and open interest. The nearest listed monthly expiry must be at least seven calendar days away; size is rounded down to whole exchange lots. Cash collateral earns no interest. The 6.5% rate used in Sharpe and Sortino is a performance hurdle, not portfolio income; a yield-bearing collateral alternative is available through <tt>--cash-rate</tt> but is not the base case because no Treasury-bill or liquid-fund position is modeled.", "Body2"),
+              P(f"<b>Capital and entry.</b> INR 20 million is split equally across {len(selection)} fixed sleeves. The universe is formed over the first 20 trading sessions (1-28 January 2020), and trading begins on 29 January. Each sleeve uses the previous trading day's adjusted underlying close as its strike reference and models sale at that day's observed option close. A contract needs positive premium, volume and open interest. The nearest listed monthly expiry must be at least seven calendar days away; size is rounded down to whole exchange lots. Cash collateral earns no interest. The 6.5% rate used in Sharpe and Sortino is a performance hurdle, not portfolio income; a yield-bearing collateral alternative is available through <tt>--cash-rate</tt> but is not the base case because no Treasury-bill or liquid-fund position is modeled.", "Body2"),
               P("<b>Wheel rules.</b> With no shares, sell the liquid put nearest 5% below the reference close and reserve the full strike obligation. An ITM put at expiry delivers shares at strike. With shares, sell the call nearest 5% above the reference close, never below the assigned net cost basis; if no qualifying quoted strike exists, sit out. An ITM call delivers the covered shares at strike and any residual shares are sold to reset to cash. Otherwise the expired leg is replaced in the next eligible session. There are no discretionary early profit takes, stops or rolls. Mandatory assignment has delivery costs but no execution slippage; modeled market sales do. A 20% option-margin proxy rises to 35% for ITM deliverables in the final seven calendar days, with pledged shares valued at 80% of close.", "Body2"),
               P(f"The engine recorded <b>{len(trades):,} trade-log events</b>, including {actions.get('SELL_PUT', 0)} short-put entries, {actions.get('ASSIGNED', 0)} assignments, {actions.get('SELL_CALL', 0)} covered-call entries, and {actions.get('CALLED_AWAY', 0)} call-aways. It inferred lots for {sum(int(r['inferred_entries']) for r in diagnostics):,} option entries, carried {sum(int(r['stale_marks']) for r in diagnostics):,} stale marks, and recorded {len(read_csv('expiry_adjustments.csv'))} expiry-date revisions.", "Body2")]
     stock_logic = [["Decision", "Rule used by the engine"],
@@ -148,7 +148,7 @@ def build(output):
                    ["Expiry", "Stock close below put strike assigns shares; above call strike calls shares away"]]
     story += [KeepTogether([P("Part A decision logic", "Sub"),
                             table(stock_logic, [3.5*cm, 12.0*cm], 6.7),
-                            P("Example: on 2 January 2020 RELIANCE used the 1 January close of INR 1,509.60. The 5% put target was INR 1,434.12; the nearest eligible strike was INR 1,440, sold at that day's observed INR 7.20 option close. Two 500-share lots fit the sleeve. In the later March assignment, the INR 1,320 put premium of INR 50.55 set net basis to INR 1,269.45; the next call was therefore struck at INR 1,280 even though the simple 5% target was only INR 1,119.51.", "Small")])]
+                            P("Example: on 30 January 2020 RELIANCE used the 29 January close of INR 1,479.85. The 5% put target was INR 1,405.86; the nearest eligible strike was INR 1,400, sold at the observed INR 24.95 option close. The INR 1.818 million sleeve could secure two 500-share lots. At expiry on 27 February the put was ITM, so 1,000 shares were delivered at INR 1,400 and the net share basis became INR 1,375.05 before delivery costs.", "Small")])]
     drows = [["Ticker", "CSPs", "Assign %", "Call %", "Avg days", "Capture", "Premium", "Costs"]]
     for r in diagnostics:
         drows.append([r["ticker"], r["put_entries"], pct(r["assignment_rate"]), pct(r["call_away_rate"]), num(r["average_post_delivery_days"], 1), pct(r["premium_capture_ratio"]), money(r["premium"]), money(r["costs"])])
@@ -162,7 +162,7 @@ def build(output):
                       r["MDD_recovery"] or "not yet", num(r["Calmar"])])
     story += [table(nrows, [2.4*cm, 1.5*cm, 1.4*cm, 1.3*cm, 1.3*cm, 1.5*cm,
                             1.9*cm, 1.9*cm, 1.9*cm, 1.2*cm], 5.6),
-              P("Each sleeve begins with INR 20 million / 12; 'not yet' means unrecovered by the end date. Exact figures are in <tt>outputs_real/per_name_summary.csv</tt>.", "Small")]
+              P(f"Each sleeve begins with INR 20 million / {len(selection)}; 'not yet' means unrecovered by the end date. Exact figures are in <tt>outputs_real/per_name_summary.csv</tt>.", "Small")]
     components = [("premium_received", "Option premiums"), ("stock_delivery_and_mark_pnl", "Stock delivery + mark"),
                   ("dividends", "Dividends"), ("rights_value", "Rights value"),
                   ("spinoff_value", "Spun-off stock"), ("cash_interest", "Cash interest"),
@@ -177,13 +177,13 @@ def build(output):
 
     story += [P("3. Data and methodology", "Section"), P(f"The downloader checked weekdays from {coverage['window'][0]} through {coverage['window'][1]}. It found {coverage['price_dates']:,} price dates, {coverage['option_dates']:,} option dates, and {coverage['option_rows']:,} option rows. {coverage['dates_with_all_three_reports_missing']} weekdays had all three NSE reports missing; one date had prices but no options report.", "Body2")]
     data_rows = [["Dataset", "Granularity and use", "Known deficiency"],
-                 ["NSE equity/index bhavcopy", "Daily closes for 12 stocks and NIFTY 50", "No intraday path or executable close quote"],
+                 ["NSE equity/index bhavcopy", f"Daily closes for {len(selection)} stocks and NIFTY 50", "No intraday path or executable close quote"],
                  ["NSE F&amp;O bhavcopy", "Daily contract close, settlement, volume, OI and lot fields", "No bid/ask or Greeks; many zero-volume rows"],
                  ["NSE corporate-action register", "Ex-date dividends, splits, bonuses, rights and demergers", "Audit cannot prove every small distribution is captured"],
                  ["NSE Indices NIFTY 50 TRI", "Official daily total-return benchmark", "Benchmark is investable only through a tracking vehicle"]]
     story += [KeepTogether([P("Source inventory", "Sub"), table(data_rows, [3.5*cm, 6.2*cm, 5.8*cm], 6.4)])]
     story += [P("Universe selection", "Sub"),
-              P("The universe contains the top 10 NSE F&amp;O stocks ranked by 20-day average option turnover, plus two handpicked stress names: ADANIENT and TATAMOTORS.", "Body2")]
+              P("The universe contains the top 10 NSE stock-option names ranked by average option turnover during the first 20 trading sessions of 2020: RELIANCE, SBIN, INDUSINDBK, ICICIBANK, INFY, AXISBANK, BHARTIARTL, BAJFINANCE, TCS, and KOTAKBANK. ADANIENT is the single declared handpicked stress override. The ranking and turnover values are in <tt>data/universe_top15_liquidity.csv</tt>.", "Body2")]
     crows = [["Coverage check", "Value"], ["Price dates", f"{coverage['price_dates']:,}"], ["Option dates", f"{coverage['option_dates']:,}"], ["Option rows", f"{coverage['option_rows']:,}"], ["Duplicate contract keys", str(coverage['duplicate_option_contract_keys'])], ["Price cells missing", str(sum(coverage['missing_price_cells'].values()))], ["Missing bid/ask fields", f"{coverage['missing_option_fields'].get('bid', 0):,} / {coverage['missing_option_fields'].get('ask', 0):,}"], ["Zero volume fields", f"{coverage['zero_option_fields'].get('volume', 0):,}"]]
     story += [table(crows, [5.7 * cm, 9.0 * cm]), Spacer(1, 8)]
     story += [P("Execution uses traded option closes and prior-day stock closes for strike choice. Lot sizes come from NSE fields or checked legacy inference. Dividends and corporate events are applied on ex-dates; short-option sale STT and share-delivery STT are charged. Puts are fully cash-secured and calls share-covered. The 20%/35% SPAN-plus-delivery proxy is checked daily against cash and haircut share collateral. Full assumptions are machine-readable in <tt>outputs_real/assumptions.json</tt>.", "Body2")]
@@ -205,7 +205,7 @@ def build(output):
     for row in action_audit:
         audit_rows.append([row["ticker"], row["recorded_events"] or "No large action found",
                            f"{row['adjusted_largest_one_day_drop_pct']}% ({row['adjusted_largest_one_day_drop_date']})"])
-    story += [KeepTogether([P("Corporate-action screen for all twelve names", "Sub"),
+    story += [KeepTogether([P(f"Corporate-action screen for all {len(selection)} names", "Sub"),
               table(audit_rows, [2.3 * cm, 9.4 * cm, 3.5 * cm], 6.5)]),
               P("The screen compares adjacent raw closes after applying recorded entitlements. It can identify large discontinuities; it cannot establish that every small corporate distribution is captured. Cash dividends are extracted separately from the NSE action register.", "Small"),
               P(f"<b>Interpretation limits.</b> Bid and ask quotes were absent, so entry and mark prices use traded close and settlement fields. The {dividend_count} dated dividend records in <tt>data/dividends.csv</tt> are credited to shares held before each ex-date session. Rights are monetized at NSE theoretical values; spun-off shares use the special pre-open implied value until listing, then NSE closes. Margin is a proxy, not a historical exchange SPAN replay; see <tt>outputs_real/daily_positions.csv</tt>. Performance is exploratory, not a production claim.", "Callout")]
@@ -238,11 +238,12 @@ def build(output):
         start, finish = peak_positions[ticker], trough_positions[ticker]
         stress_rows.append([ticker, position_label(start), position_label(finish),
                             pct(float(finish["spot"])/float(start["spot"])-1), money(loss)])
-    axis_loss = next(loss for ticker, loss in contributors if ticker == "AXISBANK")
-    axis_stock_move = float(trough_positions["AXISBANK"]["spot"])/float(peak_positions["AXISBANK"]["spot"])-1
-    story += [P(f"The wheel's worst drawdown was {pct(wheel['MDD'])}, from {peak_day} to {trough_day}, with recovery on {wheel['MDD_recovery'] or 'no date in the sample'}. Cash-secured short puts were already open at the peak. At the 27 February expiry, the rules forced two assignments, in TATAMOTORS and LT; both then sold covered calls. Stock exposure rose from {money(start_shares)} to {money(end_shares)}. The five largest sleeve losses and endpoint positions are below.", "Body2"),
+    assignment_names = sorted({r["ticker"] for r in episode_trades if r["action"] == "ASSIGNED"})
+    largest_ticker, largest_loss = contributors[0]
+    largest_stock_move = float(trough_positions[largest_ticker]["spot"])/float(peak_positions[largest_ticker]["spot"])-1
+    story += [P(f"The wheel's worst drawdown was {pct(wheel['MDD'])}, from {peak_day} to {trough_day}, with recovery on {wheel['MDD_recovery'] or 'no date in the sample'}. Cash-secured short puts were already open at the peak. During the episode the rules forced assignments in {', '.join(assignment_names)}. Stock exposure rose from {money(start_shares)} to {money(end_shares)}. The five largest sleeve losses and endpoint positions are below.", "Body2"),
               table(stress_rows, [2.2*cm, 4.1*cm, 4.1*cm, 2.2*cm, 2.8*cm], 6.4),
-              P(f"AXISBANK lost {money(axis_loss)} without holding shares at either endpoint: its open short put was marked against a {pct(axis_stock_move)} underlying move. TATAMOTORS and LT lost through delivered shares after the two assignments. The trade log shows {sum(r['action'].startswith('SELL_') for r in episode_trades)} new option sales and {money(sum(float(r.get('cost') or 0) for r in episode_trades))} of logged event costs during this episode. Daily option liabilities, cash and shares are in <tt>outputs_real/daily_positions.csv</tt>.", "Body2")]
+              P(f"The largest sleeve contributor was {largest_ticker}, which changed by {money(largest_loss)} as its underlying moved {pct(largest_stock_move)}. Assigned sleeves then carried delivered stock into the sell-off. The trade log shows {sum(r['action'].startswith('SELL_') for r in episode_trades)} new option sales and {money(sum(float(r.get('cost') or 0) for r in episode_trades))} of logged event costs during this episode. Daily option liabilities, cash and shares are in <tt>outputs_real/daily_positions.csv</tt>.", "Body2")]
 
     nw = nifty_summary["synthetic_nifty_wheel"]
     nb = nifty_summary["nifty_tr"]
@@ -298,8 +299,8 @@ def build(output):
               P("The option expiry cash debit uses intrinsic value calculated from the expiry-day NIFTY close because the historical archive does not supply the official final-settlement index as a clean separate field throughout the sample. Entry uses the next session's observed close, not its open, and historical SPAN files and executable bid/ask quotes are unavailable. These are material implementation limits. Weekly expiries were excluded by matching option expiries to listed NIFTY futures expiries; a weekly version would have higher turnover and near-expiry gamma exposure.", "Callout")]
 
     coverage_rows = [["Assignment item", "Report evidence", "Status"],
-                     ["2020-01-01 to 2026-06-30 EOD data", "Section 3 source inventory and coverage audit", "Covered"],
-                     ["Objective 8-15 stock liquidity screen", "Top 10 by 20-day average option turnover, plus ADANIENT and TATAMOTORS", "Covered"],
+                     ["2020-01-01 to 2026-06-30 EOD data", "20-session formation window; backtest starts 2020-01-29", "Covered"],
+                     ["Objective 8-15 stock liquidity screen", "Top 10 by 20-day average option turnover, plus ADANIENT", "Covered"],
                      ["Put, delivery, call, sizing, exits and margin", "Section 2 rules, decision table and worked RELIANCE example", "Covered"],
                      ["Costs, STT and slippage sensitivity", "Section 3 cost table; Section 4 sensitivity", "Covered"],
                      ["Portfolio and per-name metrics / diagnostics", "Sections 1-2 tables and reconciled P&amp;L", "Covered"],

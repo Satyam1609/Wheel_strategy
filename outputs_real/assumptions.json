@@ -1,6 +1,8 @@
 {
+  "start_date": "2020-01-29",
+  "universe_formation_window": "2020-01-01 through 2020-01-28 (20 trading sessions)",
   "source": "NSE bhavcopy, data/real_prices.csv and data/real_options.csv",
-  "universe_selection": "Original 12-name cross-sector and stress shortlist; first-day option participation eligibility check in data/universe_selection.csv (not an all-market ranking)",
+  "universe_selection": "Top 10 NSE stock-option names by 20-session average option turnover, plus the declared ADANIENT stress override; ranking in data/universe_top15_liquidity.csv",
   "nifty_tr": "Official NSE Indices total-return index; data/nifty50_tr.csv",
   "end_date": "2026-06-30",
   "entry_price": "traded option close, volume>0 and OI>0",

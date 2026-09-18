@@ -52,7 +52,7 @@ class RealBacktestTests(unittest.TestCase):
         self.assertTrue(set(TICKERS).issubset({ticker for _, ticker in dividends}))
         self.assertEqual(dividends[("2023-01-16", "TCS")], 75)
         self.assertEqual(dividends[("2024-05-31", "INFY")], 28)
-        self.assertEqual(dividends[("2026-06-12", "TMCV")], 4)
+        self.assertEqual(dividends[("2026-06-25", "INDUSINDBK")], 1.5)
 
     def test_split_preserves_equity_and_adjusts_open_call(self):
         state = make_state("BAJFINANCE")

@@ -1,4 +1,4 @@
-"""Exploratory 12-stock wheel backtest using NSE bhavcopy prices and options.
+"""Exploratory stock-wheel backtest using NSE bhavcopy prices and options.
 
 Uses NSE bhavcopy prices and observed option settlements. Corporate actions are
 loaded from data/corporate_actions.csv; optional dividends are loaded from
@@ -24,12 +24,14 @@ RISK_FREE_RATE = 0.065
 DEFAULT_CASH_RATE = 0.0
 
 
-def load_prices(path, end):
+def load_prices(path, end, start=None):
     rows = []
     with path.open(newline="") as handle:
         for row in csv.DictReader(handle):
             if row["date"] > end:
                 break
+            if start and row["date"] < start:
+                continue
             if not all(row[t] for t in ("NIFTY", *TICKERS)):
                 raise ValueError(f"Missing underlying price on {row['date']}")
             rows.append((row["date"], {t: float(row[t]) for t in ("NIFTY", *TICKERS)}))
@@ -306,6 +308,8 @@ def run(prices, option_path, inferred_lots, strike_otm=0.05, slippage_bps=25,
     previous_prices = None
     for day, px in prices:
         options = defaultdict(list)
+        while next_day and next_day[0] < day:
+            next_day = next(stream, None)
         if next_day and next_day[0] == day:
             options = next_day[1]
             next_day = next(stream, None)
@@ -541,13 +545,15 @@ def write_csv(path, rows):
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--start", default="2020-01-29",
+                    help="First trading date; default follows the 20-session formation window")
     ap.add_argument("--end", default="2026-06-30")
     ap.add_argument("--out",type=Path,default=BASE/"outputs_real")
     ap.add_argument("--strike-otm", type=float, default=0.05)
     ap.add_argument("--slippage-bps", type=float, default=costs.DEFAULT_SLIPPAGE_BPS)
     ap.add_argument("--cash-rate", type=float, default=DEFAULT_CASH_RATE)
     args=ap.parse_args()
-    prices=load_prices(BASE/"data/real_prices.csv",args.end)
+    prices=load_prices(BASE/"data/real_prices.csv",args.end,args.start)
     from main.backtest.select_universe import screen
     selection = screen(BASE/"data/real_options.csv", prices[0][0])
     nifty_tr = load_nifty_tr(BASE/"data/nifty50_tr.csv", [day for day, _ in prices])
@@ -601,8 +607,10 @@ def main():
         diag.append(row)
     write_csv(args.out/"diagnostics.csv",diag)
     (args.out/"assumptions.json").write_text(json.dumps({
+        "start_date": args.start,
+        "universe_formation_window": "2020-01-01 through 2020-01-28 (20 trading sessions)",
         "source":"NSE bhavcopy, data/real_prices.csv and data/real_options.csv",
-        "universe_selection":"Original 12-name cross-sector and stress shortlist; first-day option participation eligibility check in data/universe_selection.csv (not an all-market ranking)",
+        "universe_selection":"Top 10 NSE stock-option names by 20-session average option turnover, plus the declared ADANIENT stress override; ranking in data/universe_top15_liquidity.csv",
         "nifty_tr":"Official NSE Indices total-return index; data/nifty50_tr.csv",
         "end_date":args.end,"entry_price":"traded option close, volume>0 and OI>0",
         "strike_reference":"previous trading day's close, transformed to ex-action basis when needed",
