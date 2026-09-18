@@ -37,6 +37,8 @@ The demonstration universe is RELIANCE, HDFCBANK, ICICIBANK, TCS, INFY, SBIN, AX
 
 The runner audits the fixed 12 against first-day option participation: at least 250 contracts traded, 1 million summed share open interest, and 15 strike/expiry rows with both positive volume and open interest. `data/universe_selection.csv` records the actual 2020-01-01 readings, sectors, and selection reasons. The first strategy entry is on the following session. Because the candidate pool was fixed directly and the names are known to have data through 2026, the result retains selection and survivorship bias.
 
+Run `python3 -m main.backtest.select_universe --top 15` to calculate the 20-session turnover and lot-adjusted open-interest ranking from the existing raw option archives. It writes `data/universe_top15_liquidity.csv`.
+
 The downloader is `main/data_pipeline/fetch_nse_data.py`. It uses public NSE archive URLs, caches raw reports under `data/raw_nse/`, aliases the post-demerger `TMPV` symbol to the continuous `TATAMOTORS` sleeve, and records source coverage in `data/source_manifest.json`. Raw ZIPs, temporary chunks, probes, and Python caches are excluded by `.gitignore`. The consolidated `data/real_options.csv` and `data/nifty_derivatives.csv` files are tracked with Git LFS. `data/legacy_lot_sizes.csv` is a compact record of legacy contract lots previously validated from NSE turnover and open-interest divisibility, so the stock backtest itself no longer needs the raw ZIP cache.
 
 To recreate the consolidated market files from NSE archives:
