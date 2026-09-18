@@ -2,6 +2,7 @@ import unittest
 
 from main.backtest import costs
 from main.backtest.run_nifty_wheel import (
+    DEFAULT_CASH_RATE,
     choose_option,
     margin_required,
     option_intrinsic,
@@ -10,6 +11,9 @@ from main.data_pipeline.extract_nifty_derivatives import legacy_lot
 
 
 class NiftyWheelTests(unittest.TestCase):
+    def test_base_case_credits_no_cash_interest(self):
+        self.assertEqual(DEFAULT_CASH_RATE, 0.0)
+
     def test_legacy_turnover_inference_recovers_exchange_lot(self):
         future = {
             "CONTRACTS": "10", "VAL_INLAKH": "0.75", "CLOSE": "100",

@@ -9,10 +9,11 @@ from itertools import groupby
 from pathlib import Path
 
 from main.backtest import costs
-from main.backtest.run_real_backtest import CAPITAL, RATE, metrics, write_csv
+from main.backtest.run_real_backtest import CAPITAL, metrics, write_csv
 
 
 BASE = Path(__file__).resolve().parents[2]
+DEFAULT_CASH_RATE = 0.0
 
 
 def load_prices(path, end):
@@ -76,7 +77,7 @@ def margin_required(state):
 
 
 def run(prices, tri, derivative_path, otm=0.05, option_slippage_bps=25,
-        futures_slippage_bps=2, end="2026-06-30"):
+        futures_slippage_bps=2, end="2026-06-30", cash_rate=DEFAULT_CASH_RATE):
     state = {
         "cash": CAPITAL, "option": None, "future": None, "pending_future": None,
         "recovery_basis": 0.0, "premium": 0.0, "option_settlement": 0.0,
@@ -286,7 +287,9 @@ def run(prices, tri, derivative_path, otm=0.05, option_slippage_bps=25,
             else:
                 state["skipped"] += 1
 
-        accrued = max(state["cash"], 0.0) * RATE / 252
+        # Cash posted as option security or futures margin earns nothing in the
+        # base case. A non-zero rate is available only as an explicit scenario.
+        accrued = max(state["cash"], 0.0) * cash_rate / 252
         state["cash"] += accrued
         state["interest"] += accrued
         liability = state["option"]["mark"] * state["option"]["qty"] if state["option"] else 0.0
@@ -345,13 +348,15 @@ def main():
     parser.add_argument("--strike-otm", type=float, default=0.05)
     parser.add_argument("--option-slippage-bps", type=float, default=25)
     parser.add_argument("--futures-slippage-bps", type=float, default=2)
+    parser.add_argument("--cash-rate", type=float, default=DEFAULT_CASH_RATE,
+                        help="Annual interest rate on positive cash (default: 0)")
     args = parser.parse_args()
     prices = load_prices(BASE / "data/real_prices.csv", args.end)
     tri = load_tri(BASE / "data/nifty50_tr.csv", args.end)
     derivative_path = BASE / "data/nifty_derivatives.csv"
     state, trades, equity, positions = run(
         prices, tri, derivative_path, args.strike_otm, args.option_slippage_bps,
-        args.futures_slippage_bps, args.end)
+        args.futures_slippage_bps, args.end, args.cash_rate)
     args.out.mkdir(parents=True, exist_ok=True)
     write_csv(args.out / "trade_log.csv", trades)
     write_csv(args.out / "equity_curve.csv", equity)
@@ -388,7 +393,8 @@ def main():
     sensitivity = []
     for name, strike, option_slip, future_slip in scenarios:
         scenario_equity = equity if name == "base" else run(
-            prices, tri, derivative_path, strike, option_slip, future_slip, args.end)[2]
+            prices, tri, derivative_path, strike, option_slip, future_slip,
+            args.end, args.cash_rate)[2]
         row = {"scenario": name, "strike_otm": strike,
                "option_slippage_bps": option_slip, "futures_slippage_bps": future_slip}
         row.update(metrics([item["synthetic_nifty_wheel"] for item in scenario_equity], dates))
@@ -401,7 +407,9 @@ def main():
         "options": "European cash settlement; monthly expiries identified by listed futures expiry",
         "futures": "daily variation margin at NSE settlement; rolled at expiry after OTM call",
         "margin": "full put strike cash reserve; otherwise max(15% futures notional, 20% short-call notional) as an offset proxy",
-        "interest": RATE, "option_slippage_bps": args.option_slippage_bps,
+        "cash_interest_rate": args.cash_rate,
+        "cash_interest_policy": "no interest on cash collateral or margin in the base case",
+        "option_slippage_bps": args.option_slippage_bps,
         "futures_slippage_bps": args.futures_slippage_bps,
         "limitations": "EOD closes, no bid/ask or historical SPAN files; transitions execute at next-session close; expiry-day NIFTY close proxies the official option final-settlement index",
     }, indent=2))

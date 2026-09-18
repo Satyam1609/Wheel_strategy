@@ -4,7 +4,8 @@
   "options": "European cash settlement; monthly expiries identified by listed futures expiry",
   "futures": "daily variation margin at NSE settlement; rolled at expiry after OTM call",
   "margin": "full put strike cash reserve; otherwise max(15% futures notional, 20% short-call notional) as an offset proxy",
-  "interest": 0.065,
+  "cash_interest_rate": 0.0,
+  "cash_interest_policy": "no interest on cash collateral or margin in the base case",
   "option_slippage_bps": 25,
   "futures_slippage_bps": 2,
   "limitations": "EOD closes, no bid/ask or historical SPAN files; transitions execute at next-session close; expiry-day NIFTY close proxies the official option final-settlement index"
