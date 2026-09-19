@@ -8,3 +8,11 @@ data/raw_nse/
 data/chunks/
 data/probe/
 tmp/
+
+# Report files are kept locally, outside the GitHub repository
+/main/report/
+/output_pdf/
+
+# Local validation files
+/notebooks/
+/tests/

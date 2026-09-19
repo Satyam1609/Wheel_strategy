@@ -1,18 +1,14 @@
 # Systematic Options: The Wheel Strategy on NSE Derivatives
 
-This repository contains the real-data NSE bhavcopy backtest. Production code is isolated under `main/`; tests and the exploratory notebook are kept separately.
+This repository contains the real-data NSE bhavcopy backtest. Production code is isolated under `main/`.
 
 ## Repository layout
 
 - `main/backtest/` — strategy engine, costs, universe rules, and chart generation.
 - `main/data_pipeline/` — NSE download and corporate-action preparation tools.
-- `main/report/` — PDF report builder.
-- `tests/` — automated unit and integration checks.
-- `notebooks/` — optional interactive validation notebook.
 - `data/` — processed research inputs and audit records.
 - `outputs_real/` — Part A stock-wheel tables, trade log, diagnostics, and PNG charts.
 - `outputs_nifty/` — Part B synthetic NIFTY-wheel results and PNG chart.
-- `output_pdf/` — final research report.
 
 Only production code belongs under `main/`. The root contains the single README, dependency file, Git ignore rules, data, and generated deliverables expected in the repository.
 
@@ -26,10 +22,9 @@ python3 -m main.backtest.run_real_backtest
 python3 -m main.backtest.plot_real_results
 python3 -m main.data_pipeline.extract_nifty_derivatives
 python3 -m main.backtest.run_nifty_wheel
-python3 -m main.report.build_report
 ```
 
-The report is written to `output_pdf/Wheel_Strategy_Research_Report.pdf`. The backtest also writes base results and sensitivity scenarios to `outputs_real/`. Use `--strike-otm` and `--slippage-bps` to run a different base case. The standard sensitivity grid includes 3%, 5%, and 8% OTM strikes plus 10, 25, and 50 bps slippage.
+The backtest writes base results and sensitivity scenarios to `outputs_real/`. Use `--strike-otm` and `--slippage-bps` to run a different base case. The standard sensitivity grid includes 3%, 5%, and 8% OTM strikes plus 10, 25, and 50 bps slippage.
 
 ## How the 11 stocks were selected
 
@@ -49,12 +44,6 @@ python3 -m main.data_pipeline.fetch_nse_data --start 2020-01-01 --end 2026-06-30
 
 The other tools are `main/data_pipeline/fetch_corporate_actions.py`, `generate_dividends.py`, `generate_spinoff_prices.py`, `audit_corporate_actions.py`, and `fetch_nifty_tr.py`. Run them as modules from the repository root, for example `python3 -m main.data_pipeline.fetch_nifty_tr`.
 
-Run the separated test suite with:
-
-```bash
-python3 -m unittest discover -s tests -v
-```
-
 ## Outputs
 
 - `outputs_real/summary.csv` — portfolio metrics including CAGR, annual volatility, Sharpe, Sortino, maximum drawdown dates, and Calmar.
@@ -73,7 +62,6 @@ python3 -m unittest discover -s tests -v
 - `outputs_nifty/trade_log.csv` — put, call, futures-entry, roll, and close events.
 - `outputs_nifty/sensitivity_summary.csv` — strike and option/futures slippage sensitivity.
 - `outputs_nifty/equity_curve.png` — Part B equity comparison chart.
-- `output_pdf/Wheel_Strategy_Research_Report.pdf` — report with Part A and implemented Part B results, sensitivity, stress narrative, and limitations.
 
 ## Data and limitations
 
